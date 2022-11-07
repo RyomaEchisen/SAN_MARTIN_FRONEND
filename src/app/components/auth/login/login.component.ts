@@ -1,6 +1,7 @@
 import { UsuarioService } from './../../../services/usuario.service';
 import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -31,13 +32,14 @@ export class LoginComponent {
     email!: string;
     password!: string;
 
-    constructor(public layoutService: LayoutService, private readonly usuarioService: UsuarioService) {
+    constructor(public layoutService: LayoutService, private readonly usuarioService: UsuarioService, private _router: Router) {
     }
 
     public onIniciar(){
         this.usuarioService.login({email: this.email, password: this.password}).subscribe({
             next: (response) => {
                 console.log('respuesta del servidor: ', response);
+                this._router.navigateByUrl('/admin')
             },
             error: (err) => {
                 console.log('error en servicio conexión back', err);

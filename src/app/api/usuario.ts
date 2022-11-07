@@ -7,11 +7,11 @@ export interface Usuario {
     username: string;
 	password: string;
 	enabled: boolean;
-	nombres: string;
-	apellidos: string;
 	email: string;
 	roles: Array<Rol>;
 	funcionario: Funcionario;
 	eventos: Array<Evento>;
 
+    [index: string]: any;
+    avatar?: string;
 }
