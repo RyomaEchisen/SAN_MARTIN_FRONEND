@@ -53,6 +53,7 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/uikit/formlayout'],
                     },
+
                     {
                         label: 'cuadros',
                         icon: 'pi pi-fw pi-share-alt',
@@ -63,11 +64,11 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-bookmark',
                         routerLink: ['/uikit/floatlabel'],
                     },
-                    /*{
+                    {
                         label: 'Invalid State',
                         icon: 'pi pi-fw pi-exclamation-circle',
                         routerLink: ['/uikit/invalidstate'],
-                    },*/
+                    },
                     {
                         label: 'Button',
                         icon: 'pi pi-fw pi-mobile',
@@ -81,7 +82,17 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/uikit/menu'],
                         preventExact: true,
                     },
+                    {
+                        label: 'CARGO Y/O TIPO',
+                        icon: 'pi pi-fw pi-id-card',
+                        routerLink: ['/uikit/table'],
+                    },
 
+                    /* {
+                        label: 'Panel',
+                        icon: 'pi pi-fw pi-tablet',
+                        routerLink: ['/uikit/panel'],
+                    },*/
                     {
                         label: 'Overlay',
                         icon: 'pi pi-fw pi-clone',
@@ -115,6 +126,7 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
+            /*
             {
                 label: 'Prime Blocks',
                 items: [
@@ -124,14 +136,14 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/blocks'],
                         badge: 'NEW',
                     },
-                    /*{
+                    {
                         label: 'All Blocks',
                         icon: 'pi pi-fw pi-globe',
                         url: ['https://www.primefaces.org/primeblocks-ng'],
                         target: '_blank',
-                    },*/
+                    },
                 ],
-            },
+            },*/
             {
                 label: 'Utilities',
                 items: [

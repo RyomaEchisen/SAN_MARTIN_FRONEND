@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputDemoComponent } from './inputdemo.component';
 import { InputDemoRoutingModule } from './inputdemo-routing.module';
-import { AutoCompleteModule } from "primeng/autocomplete";
-import { CalendarModule } from "primeng/calendar";
-import { ChipsModule } from "primeng/chips";
-import { ChipModule } from "primeng/chip";
-import { DropdownModule } from "primeng/dropdown";
-import { InputMaskModule } from "primeng/inputmask";
-import { InputNumberModule } from "primeng/inputnumber";
-import { CascadeSelectModule } from "primeng/cascadeselect";
-import { MultiSelectModule } from "primeng/multiselect";
-import { InputTextareaModule } from "primeng/inputtextarea";
-import { InputTextModule } from "primeng/inputtext";
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { ChipsModule } from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -25,6 +25,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SliderModule } from 'primeng/slider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
     imports: [
@@ -52,8 +53,9 @@ import { SliderModule } from 'primeng/slider';
         ListboxModule,
         SelectButtonModule,
         CheckboxModule,
-        ButtonModule
+        ButtonModule,
+        MatTabsModule,
     ],
-    declarations: [InputDemoComponent]
+    declarations: [InputDemoComponent],
 })
-export class InputDemoModule { }
+export class InputDemoModule {}

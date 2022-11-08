@@ -2,23 +2,73 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 export interface PeriodicElement {
-    name: string;
     position: number;
-    weight: number;
-    symbol: string;
+    name: string;
+    tipo: string;
+    estado: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+    {
+        position: 1,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 2,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 3,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 4,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 5,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 6,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 7,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 8,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 9,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
+    {
+        position: 10,
+        name: 'Solicitud pendiente',
+        tipo: 'Solicitud Pendiente',
+        estado: 'pendiente',
+    },
 ];
 @Component({
     selector: 'tab-group-basic-example',
@@ -27,7 +77,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     styleUrls: ['panelsdemo-routing.css'],
 })
 export class PanelsDemoComponent implements OnInit {
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+    displayedColumns: string[] = ['position', 'name', 'tipo', 'estado'];
     dataSource = ELEMENT_DATA;
 
     items: MenuItem[] = [];

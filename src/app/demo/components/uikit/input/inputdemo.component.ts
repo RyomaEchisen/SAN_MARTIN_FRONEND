@@ -5,6 +5,7 @@ import { CountryService } from 'src/app/demo/service/country.service';
 
 @Component({
     templateUrl: './inputdemo.component.html',
+    selector: 'tab-group-basic-example',
     styles: [
         `
             :host ::ng-deep .p-multiselect {
