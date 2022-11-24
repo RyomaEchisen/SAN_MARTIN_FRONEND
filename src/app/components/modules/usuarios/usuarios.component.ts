@@ -6,10 +6,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
     templateUrl: './usuarios.component.html',
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class UsuariosComponent implements OnInit {
-
     usuarioDialog: boolean = false;
 
     deleteUsuarioDialog: boolean = false;
@@ -25,15 +24,18 @@ export class UsuariosComponent implements OnInit {
     submitted: boolean = false;
 
     cols: Array<{
-        field: string,
-        header: string
+        field: string;
+        header: string;
     }> = [];
 
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private usuarioService: UsuarioService, private messageService: MessageService) { }
+    constructor(
+        private usuarioService: UsuarioService,
+        private messageService: MessageService
+    ) {}
 
     ngOnInit() {
         this.usuarioService.get().subscribe({
@@ -42,16 +44,17 @@ export class UsuariosComponent implements OnInit {
             },
             error: (err) => {
                 console.log('error en servicio conexión back', err);
-            }
+            },
         });
 
         this.cols = [
-                { field: 'username', header: 'Nombre de usuario' },
-                { field: 'roles', header: 'Roles' },
-                { field: 'email', header: 'Correo' },
-                { field: 'funcionario', header: 'Funcionario' },
-                { field: 'enabled', header: 'Estado' }
-            ];
+            { field: 'username', header: 'Nombre de usuario' },
+            { field: 'roles', header: 'Roles' },
+            { field: 'email', header: 'Correo' },
+            { field: 'password', header: 'Password' },
+            { field: 'funcionario', header: 'Funcionario' },
+            { field: 'enabled', header: 'Estado' },
+        ];
 
         this.statuses = [
             { label: 'ACTIVO', value: true },
@@ -81,15 +84,29 @@ export class UsuariosComponent implements OnInit {
 
     confirmDeleteSelected() {
         this.deleteUsuariosDialog = false;
-        this.usuarios = this.usuarios.filter(val => !this.selectedUsuarios.includes(val));
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuarios Deleted', life: 3000 });
+        this.usuarios = this.usuarios.filter(
+            (val) => !this.selectedUsuarios.includes(val)
+        );
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Usuarios Deleted',
+            life: 3000,
+        });
         this.selectedUsuarios = [];
     }
 
     confirmDelete() {
         this.deleteUsuarioDialog = false;
-        this.usuarios = this.usuarios.filter(val => val.id !== this.usuario.id);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuario Deleted', life: 3000 });
+        this.usuarios = this.usuarios.filter(
+            (val) => val.id !== this.usuario.id
+        );
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Usuario Deleted',
+            life: 3000,
+        });
         this.usuario = {};
     }
 
@@ -105,10 +122,20 @@ export class UsuariosComponent implements OnInit {
             if (this.usuario.id) {
                 // @ts-ignore
                 // TODO: interactuar con back
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuario Updated', life: 3000 });
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: 'Usuario Updated',
+                    life: 3000,
+                });
             } else {
                 // TODO: interactuar con back
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuario Created', life: 3000 });
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: 'Usuario Created',
+                    life: 3000,
+                });
             }
 
             this.usuarios = [...this.usuarios];
@@ -129,6 +156,9 @@ export class UsuariosComponent implements OnInit {
     }
 
     onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
     }
 }

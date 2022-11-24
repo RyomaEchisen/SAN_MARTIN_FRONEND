@@ -140,7 +140,7 @@
         <p-dialog
             [(visible)]="usuarioDialog"
             [style]="{ width: '450px' }"
-            header="Nuevo Funcionario"
+            header="Nuevo Usuario"
             [modal]="true"
             class="p-fluid"
         >
@@ -181,7 +181,33 @@
                         >Email es requerido.</small
                     >
                 </div>
-
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" pInputText id="password" required />
+                </div>
+                <!--<div class="field">
+                    <label class="mb-3">Estado</label>
+                    <div class="formgrid grid">
+                        <div class="field-radiobutton col-6">
+                            <p-radioButton
+                                id="category1"
+                                name="category"
+                                value="Accessories"
+                                [(ngModel)]="usuario.email"
+                            ></p-radioButton>
+                            <label for="category1">Activo</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <p-radioButton
+                                id="category2"
+                                name="category"
+                                value="Clothing"
+                                [(ngModel)]="usuario.email"
+                            ></p-radioButton>
+                            <label for="category2">Inactivo</label>
+                        </div>
+                    </div>
+                </div>-->
                 <!--<div class="field">seleccion formulario opciones
                     <label for="status">Tipo</label>
                     <p-dropdown
@@ -277,76 +303,6 @@
                     icon="pi pi-check"
                     class="p-button-text"
                     (click)="saveUsuario()"
-                ></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog
-            [(visible)]="deleteUsuarioDialog"
-            header="Confirm"
-            [modal]="true"
-            [style]="{ width: '450px' }"
-        >
-            <div class="flex align-items-center justify-content-center">
-                <i
-                    class="pi pi-exclamation-triangle mr-3"
-                    style="font-size: 2rem"
-                ></i>
-                <span *ngIf="usuario"
-                    >Are you sure you want to delete
-                    <b>{{ usuario.username }}</b
-                    >?</span
-                >
-            </div>
-            <ng-template pTemplate="footer">
-                <button
-                    pButton
-                    pRipple
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    label="No"
-                    (click)="deleteUsuarioDialog = false"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    icon="pi pi-check"
-                    class="p-button-text"
-                    label="Yes"
-                    (click)="confirmDelete()"
-                ></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog
-            [(visible)]="deleteUsuariosDialog"
-            header="Confirm"
-            [modal]="true"
-            [style]="{ width: '450px' }"
-        >
-            <div class="flex align-items-center justify-content-center">
-                <i
-                    class="pi pi-exclamation-triangle mr-3"
-                    style="font-size: 2rem"
-                ></i>
-                <span>Are you sure you want to delete selected usuarios?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button
-                    pButton
-                    pRipple
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    label="No"
-                    (click)="deleteUsuariosDialog = false"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    icon="pi pi-check"
-                    class="p-button-text"
-                    label="Yes"
-                    (click)="confirmDeleteSelected()"
                 ></button>
             </ng-template>
         </p-dialog>

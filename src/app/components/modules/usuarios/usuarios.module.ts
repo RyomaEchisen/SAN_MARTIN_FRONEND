@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CrudRoutingModule } from './usuarios-routing.module';
+import { UsuariosRoutingModule } from './usuarios-routing.module';
 import { UsuariosComponent } from './usuarios.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -20,7 +20,7 @@ import { DialogModule } from 'primeng/dialog';
 @NgModule({
     imports: [
         CommonModule,
-        CrudRoutingModule,
+        UsuariosRoutingModule,
         TableModule,
         FileUploadModule,
         FormsModule,
@@ -34,8 +34,8 @@ import { DialogModule } from 'primeng/dialog';
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
     ],
-    declarations: [UsuariosComponent]
+    declarations: [UsuariosComponent],
 })
-export class UsuariosModule { }
+export class UsuariosModule {}

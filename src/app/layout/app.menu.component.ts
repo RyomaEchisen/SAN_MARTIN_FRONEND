@@ -58,6 +58,16 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/admin/reporteSucursales'],
                     },
+                    //{
+                    //     label: 'CRUD',
+                    //     icon: 'pi pi-fw pi-list',
+                    //     routerLink: ['/admin/crud'],
+                    //},
+                    {
+                        label: 'SOLICITUDES',
+                        icon: 'pi pi-fw pi-list',
+                        routerLink: ['/admin/formularioUsuarios'],
+                    },
 
                     //{
                     //    label: 'cuadros',

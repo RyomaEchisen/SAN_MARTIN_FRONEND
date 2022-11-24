@@ -48,6 +48,20 @@ import { DashboardComponent } from './dashboard.component';
                         '../modules/reporteSucursales/reporteSucursales.module'
                     ).then((m) => m.ReporteSucursalesModule),
             },
+            {
+                path: 'crud',
+                loadChildren: () =>
+                    import('../modules/crud/crud.module').then(
+                        (m) => m.CrudModule
+                    ),
+            },
+            {
+                path: 'formularioUsuarios',
+                loadChildren: () =>
+                    import(
+                        '../modules/formularioUsuarios/formularioUsuarios.module'
+                    ).then((m) => m.FormularioUsuariosModule),
+            },
         ]),
     ],
     exports: [RouterModule],

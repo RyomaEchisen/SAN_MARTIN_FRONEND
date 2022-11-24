@@ -3,9 +3,9 @@ import { RouterModule } from '@angular/router';
 import { UsuariosComponent } from './usuarios.component';
 
 @NgModule({
-	imports: [RouterModule.forChild([
-		{ path: '', component: UsuariosComponent }
-	])],
-	exports: [RouterModule]
+    imports: [
+        RouterModule.forChild([{ path: '', component: UsuariosComponent }]),
+    ],
+    exports: [RouterModule],
 })
-export class CrudRoutingModule { }
+export class UsuariosRoutingModule {}
