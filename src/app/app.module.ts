@@ -15,6 +15,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { environment } from '../environments/environment';
 import { UsuarioService } from './services/usuario.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PersonaService } from './services/persona.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -37,6 +38,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
         ProductService,// demo
         // mis servicios
         UsuarioService,
+        PersonaService,
     ],
     bootstrap: [AppComponent],
 })

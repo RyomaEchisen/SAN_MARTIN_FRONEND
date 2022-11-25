@@ -21,6 +21,13 @@ import { DashboardComponent } from './dashboard.component';
                     ),
             },
             {
+                path: 'personas',
+                loadChildren: () =>
+                    import('../modules/personas/personas.module').then(
+                        (m) => m.PersonasModule
+                    ),
+            },
+            {
                 path: 'habilitarPermisos',
                 loadChildren: () =>
                     import(

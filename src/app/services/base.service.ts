@@ -20,7 +20,7 @@ export class BaseService<Type> {
     }
 
     update(id: number, data: Partial<Type>):Observable<Type> {
-        return this.httpClient.patch<Type>(`${this.uri}/${id}`, data);
+        return this.httpClient.put<Type>(`${this.uri}/${id}`, data);
     }
 
     delete(id: number):Observable<Type> {
