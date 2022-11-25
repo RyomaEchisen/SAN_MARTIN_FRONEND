@@ -1,0 +1,37 @@
+### VARIABLES DE ENTORNO
+# @baseUrl = https://jl-idif-gw-test.fiscalia.gob.bo
+# @baseUrl = https://jl2-idif-gw.fiscalia.gob.bo
+@baseUrl = http://localhost:8080
+@authToken = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXNvSWQiOjEwOTYxNDI5LCJhY3RpdmlkYWRJZCI6MjYxNzYsIm51bWVyb0RvY3VtZW50byI6IjUxMjU5MTAiLCJpYXQiOjE2Njg2MjE0NzIsImV4cCI6MTY2ODcwNzg3Mn0.YMyeXSWue0PRMO77elWFzFYIWAyWpdOia8TqlpnqMhE
+
+### PROBAR EL SERVICIO
+
+GET {{baseUrl}}/api/api_usuario/usuarios
+# test url req
+# http://localhost:8000/solicitud/jl/v1/token?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXNvSWQiOjEwOTYxNDI5LCJhY3RpdmlkYWRJZCI6MjYxNzYsIm51bWVyb0RvY3VtZW50byI6IjUxMjU5MTAiLCJpYXQiOjE2NjkxNTQzMzcsImV4cCI6MTY2OTI0MDczN30.Aupqls17_4sxxclPZHIVCawXtFPjhqm-8O23zB2cMHI
+
+### OBTENER LA URL PARA IFRAME
+POST {{baseUrl}}/api/api_usuario/usuarios
+content-type: application/json
+
+{
+  "casoId": 10961429,
+  "actividadId": 26176,
+  "numeroDocumento": "5125910"
+}
+
+
+
+
+
+
+
+
+PATCH {{baseUrl}}/api/api_usuario/usuarios/1
+content-type: application/json
+
+{
+  "casoId": 10961429,
+  "actividadId": 26176,
+  "numeroDocumento": "5125910"
+}
