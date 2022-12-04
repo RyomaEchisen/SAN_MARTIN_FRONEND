@@ -53,7 +53,7 @@
                 [columns]="cols"
                 responsiveLayout="scroll"
                 [rows]="20"
-                [globalFilterFields]="['username', 'email', 'roles', 'enabled']"
+                [globalFilterFields]="['username', 'email', 'roles']"
                 [rows]="20"
                 [paginator]="true"
                 [rowsPerPageOptions]="[20]"
@@ -153,7 +153,7 @@
                     *ngIf="usuario.avatar"
                 />
                 <div class="field">
-                    <label for="username">Nombre de usuario</label>
+                    <label for="username">Funcionario</label>
                     <input
                         type="text"
                         pInputText
@@ -169,22 +169,68 @@
                     <small
                         class="ng-dirty ng-invalid"
                         *ngIf="submitted && !usuario.username"
-                        >El nombre de usuario es requerido.</small
+                        >El Funcionario es requerido.</small
                     >
                 </div>
                 <div class="field">
-                    <label for="email">E-mail</label>
-                    <input type="text" pInputText id="email" required />
+                    <label for="username">Rol</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="roles"
+                        [(ngModel)]="usuario.roles"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !usuario.roles
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !usuario.roles"
+                        >El rol es requerido.</small
+                    >
+                </div>
+                <div class="field">
+                    <label for="username">Password</label>
+                    <input
+                        type="password"
+                        pInputText
+                        id="password"
+                        [(ngModel)]="usuario.password"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty':
+                                submitted && !usuario.password
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !usuario.password"
+                        >La contraseña es requerida</small
+                    >
+                </div>
+                <div class="field">
+                    <label for="username">Email</label>
+                    <input
+                        type="email"
+                        pInputText
+                        id="email"
+                        [(ngModel)]="usuario.email"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !usuario.email
+                        }"
+                    />
                     <small
                         class="ng-dirty ng-invalid"
                         *ngIf="submitted && !usuario.email"
-                        >Email es requerido.</small
+                        >El correo es requerido.</small
                     >
                 </div>
-                <div class="field">
-                    <label for="password">Password</label>
-                    <input type="password" pInputText id="password" required />
-                </div>
+
                 <!--<div class="field">
                     <label class="mb-3">Estado</label>
                     <div class="formgrid grid">
