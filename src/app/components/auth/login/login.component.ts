@@ -38,11 +38,10 @@ export class LoginComponent {
     public onIniciar(){
         this.usuarioService.login({email: this.email, password: this.password}).subscribe({
             next: (response) => {
-                console.log('respuesta del servidor: ', response);
                 this._router.navigateByUrl('/admin')
             },
             error: (err) => {
-                console.log('error en servicio conexión back', err);
+                // console.log('error en servicio conexión back', err);
             }
         })
     }

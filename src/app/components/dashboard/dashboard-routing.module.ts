@@ -13,18 +13,25 @@ import { DashboardComponent } from './dashboard.component';
                         (m) => m.UsuariosModule
                     ),
             },
-            {
-                path: 'funcionarios',
-                loadChildren: () =>
-                    import('../modules/funcionarios/funcionarios.module').then(
-                        (m) => m.FuncionariosModule
-                    ),
-            },
+            // {
+            //     path: 'funcionarios',
+            //     loadChildren: () =>
+            //         import('../modules/funcionarios/funcionarios.module').then(
+            //             (m) => m.FuncionariosModule
+            //         ),
+            // },
             {
                 path: 'personas',
                 loadChildren: () =>
                     import('../modules/personas/personas.module').then(
                         (m) => m.PersonasModule
+                    ),
+            },
+            {
+                path: 'sucursales',
+                loadChildren: () =>
+                    import('../modules/sucursales/sucursales.module').then(
+                        (m) => m.SucursalesModule
                     ),
             },
             {

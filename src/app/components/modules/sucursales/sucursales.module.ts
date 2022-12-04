@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PersonasRoutingModule } from './personas-routing.module';
-import { PersonasComponent } from './personas.component';
+import { SucursalesRoutingModule } from './sucursales-routing.module';
+import { SucursalesComponent } from './sucursales.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -16,13 +16,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { FuncionarioFormDialogComponent } from '../funcionarios/components/funcionario-form-dialog/funcionario-form-dialog.component';
-
+import { SucursalService } from 'src/app/services/sucursal.service';
 
 @NgModule({
     imports: [
         CommonModule,
-        PersonasRoutingModule,
+        SucursalesRoutingModule,
         TableModule,
         FileUploadModule,
         FormsModule,
@@ -38,6 +37,7 @@ import { FuncionarioFormDialogComponent } from '../funcionarios/components/funci
         InputNumberModule,
         DialogModule,
     ],
-    declarations: [PersonasComponent, FuncionarioFormDialogComponent],
+    declarations: [SucursalesComponent],
+    providers: [SucursalService],
 })
-export class PersonasModule {}
+export class SucursalesModule {}

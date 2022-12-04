@@ -41,7 +41,7 @@ export interface Persona {
     telfDomi: string;
     telfTrabajo: string;
 
-    // funcionario: Funcionario;
+    funcionarios: Array<Funcionario>;
 	// eventos: Array<Evento>;
     // avatar?: string;
 

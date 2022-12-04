@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FuncionariosComponent } from './funcionarios.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { FuncionariosRoutingModule } from './funcionarios-routing.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -19,6 +17,7 @@ import { RatingModule } from 'primeng/rating';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { FuncionarioFormDialogComponent } from './components/funcionario-form-dialog/funcionario-form-dialog.component';
 
 @NgModule({
     imports: [
@@ -28,7 +27,6 @@ import { DialogModule } from 'primeng/dialog';
         InputTextModule,
         InputTextareaModule,
         ButtonModule,
-        FuncionariosRoutingModule,
 
         //////////
 
@@ -47,6 +45,6 @@ import { DialogModule } from 'primeng/dialog';
         InputNumberModule,
         DialogModule,
     ],
-    declarations: [FuncionariosComponent],
+    declarations: [FuncionarioFormDialogComponent],
 })
 export class FuncionariosModule {}

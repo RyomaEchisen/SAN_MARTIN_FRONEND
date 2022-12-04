@@ -7,6 +7,8 @@ export interface Funcionario {
 	estado: number;
 	fechaInicio: string;
 	fechaFin: string;
+    personaId: number;
+    sucursalId: number;
 	persona: any;
 	sucursal: any;
 	usuarios: Array<Usuario>;
