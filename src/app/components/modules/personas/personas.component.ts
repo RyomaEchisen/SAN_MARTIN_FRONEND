@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Persona } from 'src/app/api/persona';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { PersonaService } from 'src/app/services/persona.service';
+import { FuncionarioFormDialogComponent } from '../funcionarios/components/funcionario-form-dialog/funcionario-form-dialog.component';
+import { Funcionario } from 'src/app/api/funcionario';
 
 @Component({
     templateUrl: './personas.component.html',
     providers: [MessageService],
 })
 export class PersonasComponent implements OnInit {
+    // Components
+    @ViewChild('dialogFunc') dialogFunc: FuncionarioFormDialogComponent | undefined;
+
     personaDialog: boolean = false;
 
     deletePersonaDialog: boolean = false;
@@ -34,8 +39,13 @@ export class PersonasComponent implements OnInit {
 
     constructor(
         private personaService: PersonaService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
+
+    onAsignarFuncionario(persona: Persona) {
+        this.dialogFunc?.onOpen(persona);
+        console.log('asignar funcionari: ', persona.nombres);
+    }
 
     getPersonas() {
         this.personaService.get().subscribe({
@@ -43,7 +53,13 @@ export class PersonasComponent implements OnInit {
                 this.personas = response;
             },
             error: (err) => {
-                console.log('error en servicio conexión back', err);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
             },
         });
     }
@@ -57,6 +73,7 @@ export class PersonasComponent implements OnInit {
             { field: 'materno', header: 'Ap. materno' },
             { field: 'tipoDocumento', header: 'Tipo de documento' },
             { field: 'numeroDocumento', header: 'Numero de documento' },
+            { field: 'funcionario', header: 'Funcionario' },
             { field: 'correo', header: 'Correo' },
         ];
 
@@ -161,8 +178,11 @@ export class PersonasComponent implements OnInit {
         this.submitted = false;
     }
 
+    onSaveFuncionario(func: Funcionario) {
+        this.getPersonas();
+    }
+
     savePersona() {
-        console.log(this.persona);
         this.submitted = true;
 
         if (this.persona.numeroDocumento?.trim()) {

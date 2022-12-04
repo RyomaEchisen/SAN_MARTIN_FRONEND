@@ -73,16 +73,28 @@
                         "
                     >
                         <h5 class="m-0">Administrar Personas</h5>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input
-                                pInputText
-                                type="text"
-                                (input)="onGlobalFilter(dt, $event)"
-                                placeholder="Search..."
-                                class="w-full sm:w-auto"
-                            />
-                        </span>
+                        <div class="flex flex-wrap">
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-refresh"
+                                class="
+                                    p-button-rounded p-button-info
+                                    mr-2
+                                "
+                                (click)="getPersonas()"
+                            ></button>
+                            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    (input)="onGlobalFilter(dt, $event)"
+                                    placeholder="Search..."
+                                    class="w-full sm:w-auto"
+                                />
+                            </span>
+                        </div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -108,7 +120,25 @@
                             ></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of cols">
-                            {{ persona[col.field] }}
+                            <div *ngIf="col.field=='funcionario'; else elseFuncField">
+                                <div *ngIf="persona.funcionarios.length>0; else elseFuncExist">
+                                    {{persona.funcionarios[0].cargo}}
+                                </div>
+                                <ng-template #elseFuncExist>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-plus"
+                                        label="ASIGNAR"
+                                        class="
+                                            p-button p-button-success
+                                        "
+                                        (click)="onAsignarFuncionario(persona)"
+                                    >
+                                    </button>
+                                </ng-template>
+                            </div>
+                            <ng-template #elseFuncField> <span>{{ persona[col.field] }}</span> </ng-template>
                         </td>
                         <td>
                             <div class="flex">
@@ -420,5 +450,6 @@
                 ></button>
             </ng-template>
         </p-dialog>
+        <app-funcionario-form-dialog #dialogFunc (save)="onSaveFuncionario($event)"></app-funcionario-form-dialog>
     </div>
 </div>

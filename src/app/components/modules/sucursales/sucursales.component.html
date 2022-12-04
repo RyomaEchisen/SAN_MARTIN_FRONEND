@@ -1,0 +1,132 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                            (click)="deleteSelectedSucursales()" [disabled]="
+                                !selectedSucursales || !selectedSucursales.length
+                            "></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
+                        chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="sucursales" [columns]="cols" responsiveLayout="scroll" [rows]="20"
+                [globalFilterFields]="['nombres', 'paterno', 'materno', 'numeroDocumento']" [paginator]="true"
+                [rowsPerPageOptions]="[20]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [(selection)]="selectedSucursales" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="
+                            flex flex-column
+                            md:flex-row
+                            md:justify-content-between
+                            md:align-items-center
+                        ">
+                        <h5 class="m-0">Administrar Sucursales</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                            {{ col.header }}
+                            <p-sortIcon field="code"></p-sortIcon>
+                        </th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-sucursal>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="sucursal"></p-tableCheckbox>
+                        </td>
+                        <td *ngFor="let col of cols">
+                            <div *ngIf="col.field=='funcionario'; else elseBlock">
+
+
+                            </div>
+                            <ng-template #elseBlock> <span>{{ sucursal[col.field] }}</span> </ng-template>
+                        </td>
+                        <td>
+                            <div class="flex flex-wrap justify-content-end">
+                                <button pButton pRipple icon="pi pi-pencil" class="
+                                        p-button-rounded p-button-success
+                                        mr-2
+                                    " (click)="editSucursal(sucursal)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                    (click)="deleteSucursal(sucursal)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="sucursalDialog" [style]="{ width: '450px' }" header="Nuevo Sucursal" [modal]="true"
+            class="p-fluid">
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" pInputText id="nombre" [(ngModel)]="sucursal.nombre" required autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty':
+                                submitted && !sucursal.nombre
+                        }" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sucursal.nombre">El nombre de sucursal es
+                        requerido.</small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                    (click)="saveSucursal()"></button>
+            </ng-template>
+        </p-dialog>
+        <p-dialog [(visible)]="deleteSucursalDialog" [style]="{ width: '450px' }" header="Eliminar sucursal"
+            [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <h6>Esta seguro de eliminar la sucursal?</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                    (click)="cancelDelete()"></button>
+                <button pButton pRipple label="Eliminar" icon="pi pi-check" class="p-button-text"
+                    (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteSucursalesDialog" [style]="{ width: '450px' }" header="Eliminar sucursales"
+            [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <h6>Esta seguro de eliminar las sucursales seleccionadas?</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                    (click)="deleteSucursalesDialog = false"></button>
+                <button pButton pRipple label="Eliminar" icon="pi pi-check" class="p-button-text"
+                    (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
