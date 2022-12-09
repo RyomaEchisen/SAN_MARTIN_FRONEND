@@ -4,9 +4,15 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
+interface Food {
+    value: string;
+    viewValue: string;
+}
+
 @Component({
     templateUrl: './usuarios.component.html',
     providers: [MessageService],
+    selector: './usuarios.component',
 })
 export class UsuariosComponent implements OnInit {
     usuarioDialog: boolean = false;
@@ -62,6 +68,11 @@ export class UsuariosComponent implements OnInit {
         // ];
     }
 
+    foods: Food[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' },
+    ];
     openNew() {
         this.usuario = {};
         this.submitted = false;

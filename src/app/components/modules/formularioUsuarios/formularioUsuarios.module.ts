@@ -17,6 +17,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { PanelModule } from 'primeng/panel';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import { MatTableModule } from '@angular/material/table';
         PanelModule,
         MatTabsModule,
         MatTableModule,
+        MatButtonModule,
     ],
     declarations: [FormularioUsuariosComponent],
 })

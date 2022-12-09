@@ -16,6 +16,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     imports: [
@@ -35,6 +37,8 @@ import { DialogModule } from 'primeng/dialog';
         RadioButtonModule,
         InputNumberModule,
         DialogModule,
+        MatSelectModule,
+        MatFormFieldModule,
     ],
     declarations: [UsuariosComponent],
 })
