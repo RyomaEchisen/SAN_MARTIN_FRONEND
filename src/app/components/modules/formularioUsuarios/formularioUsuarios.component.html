@@ -111,513 +111,1029 @@
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
                 <mat-tab label="Formulario 2">
                     <h5>2.- SOLICITUD TOLERANCIA PARA LACTANCIA</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD TOLERANCIA PARA LACTANCIA<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >De Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 3">
                     <h5>3.- SOLICITUD PERMISO</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD PERMISO<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 4">
                     <h5>4.- PAPELETA DE COMISION</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                PAPELETA DE COMISION<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Tipo de Licencia:
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Tiempo:
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >De Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >Retorno Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Observaciones:
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+
+                                    <!--div class="align-items-center">
+                                        <label
+                                            ><h5>
+                                                <p>Firma Funcionario</p>
+                                                <p>Firma Area Solicitante</p>
+                                                <p>Firma Autorizada</p>
+                                            </h5></label
+                                        >
+                                    </div-->
+
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 5">
                     <h5>5.- SOLICITUD PERMISO POR MATRIMONIO</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD PERMISO POR MATRIMONIO<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 6">
                     <h5>6.- SOLICITUD PERMISO POR FALLECIMIENTO</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD PERMISO POR FALLECIMIENTO<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 7">
                     <h5>7.- SOLICITUD PERMISO POR PATERNIDAD</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD PERMISO POR PATERNIDAD <br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 8">
                     <h5>8.- SOLICITUD PERMISO POR CUMPLEAÑOS</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD PERMISO POR CUMPLEAÑOS <br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 9">
                     <h5>9.- SOLICITUD PERMISO SEGUN RM 268/11</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                SOLICITUD PERMISO SEGUN RM 268/11<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
 
                 <mat-tab label="Formulario 10">
                     <h5>10.- PAPELETA DE LICENCIA Y/O VACACION</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
+                    <div class="card px-6 py-6">
+                        <div>
+                            <h3>
+                                <img
+                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                    width="60"
+                                    height="60"
+                                    alt="COOPERATIVA"
+                                />
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
+                                COOPERATIVA DE AHORRO Y CREDITO<br />
+                                SOCIETARIA "SAN MARTIN" RL<br />
+                                PAPELETA DE LICENCIA Y/O VACACION<br />
+                            </h3>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
+                            <!-- MODAL-->
 
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
+                            <div class="col-12">
+                                <div class="card px-8 py-8">
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Nombre
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Olga Mamani Alejo"
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlInput1"
+                                            class="form-label"
+                                            >Cargo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleFormControlInput1"
+                                            placeholder="Sistemas"
+                                        />
+                                    </div>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                                    <div class="mb-3">
+                                        <label
+                                            for="exampleFormControlTextarea1"
+                                            class="form-label"
+                                            >Motivo
+                                        </label>
+                                        <textarea
+                                            class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1"
+                                            >Fecha</label
+                                        >
+                                        <input
+                                            type="date"
+                                            id="exampleFormControlInput1"
+                                            placeholder="15/05/2022"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >De Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                        <label for="exampleFormControlInput1"
+                                            >A Horas</label
+                                        >
+                                        <input
+                                            type="time"
+                                            id="exampleFormControlInput1"
+                                        />
+                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="GUARDAR"
+                                        icon="pi pi-check"
+                                        class="p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="CANCELAR"
+                                        icon="pi pi-check"
+                                        class="p-button-danger"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </mat-tab>
             </mat-tab-group>
         </div>
