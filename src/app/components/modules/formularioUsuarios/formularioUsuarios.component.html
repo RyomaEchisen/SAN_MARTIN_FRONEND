@@ -4,222 +4,514 @@
             <mat-tab-group>
                 <mat-tab label="Formulario 1">
                     <h5>1.- SOLICITUD TRABAJO FUERA DE HORAS NORMALES</h5>
+                    <!-- -->
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
-
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD TRABAJO FUERA DE HORAS NORMALES<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                    </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
-                                </div>
-                            </div>
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
+
+                        <p-dialog
+                            [(visible)]="formularioDialog"
+                            [style]="{ width: '750px' }"
+                            header="Nueva Solicitud"
+                            [modal]="true"
+                            class="p-fluid"
+                        >
+                            <ng-template pTemplate="content">
+                                <div class="card px-10 py-10">
+                                    <div>
+                                        <h3>
+                                            <img
+                                                src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                                width="60"
+                                                height="60"
+                                                alt="COOPERATIVA"
+                                            />
+
+                                            COOPERATIVA DE AHORRO Y CREDITO<br />
+                                            SOCIETARIA "SAN MARTIN" RL<br />
+                                            SOLICITUD TRABAJO FUERA DE HORAS
+                                            NORMALES<br />
+                                        </h3>
+
+                                        <div class="col-12">
+                                            <div class="card px-8 py-8">
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        class="form-label"
+                                                        >Nombre
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="Olga Mamani Alejo"
+                                                    />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        class="form-label"
+                                                        >Cargo
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="Sistemas"
+                                                    />
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlTextarea1"
+                                                        class="form-label"
+                                                        >Motivo
+                                                    </label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        id="exampleFormControlTextarea1"
+                                                        rows="3"
+                                                    ></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >Fecha</label
+                                                    >
+                                                    <input
+                                                        type="date"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="15/05/2022"
+                                                    />
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >De Horas</label
+                                                    >
+                                                    <input
+                                                        type="time"
+                                                        id="exampleFormControlInput1"
+                                                    />
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >A Horas</label
+                                                    >
+                                                    <input
+                                                        type="time"
+                                                        id="exampleFormControlInput1"
+                                                    />
+                                                </div>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    label="GUARDAR"
+                                                    icon="pi pi-check"
+                                                    class="
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    label="CANCELAR"
+                                                    icon="pi pi-check"
+                                                    class="p-button-danger"
+                                                ></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <ng-template pTemplate="footer">
+                                <button
+                                    pButton
+                                    pRipple
+                                    label="Cancel"
+                                    icon="pi pi-times"
+                                    class="p-button-text"
+                                    (click)="hideDialog()"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    label="Save"
+                                    icon="pi pi-check"
+                                    class="p-button-text"
+                                ></button>
+                            </ng-template>
+                        </p-dialog>
                     </div>
+                    <!-- -->
                 </mat-tab>
                 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
+
                 <mat-tab label="Formulario 2">
                     <h5>2.- SOLICITUD TOLERANCIA PARA LACTANCIA</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD TOLERANCIA PARA LACTANCIA<br />
-                            </h3>
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >De Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Fecha</label
-                                        >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                    </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
-                                </div>
-                            </div>
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
+                        <p-dialog
+                            [(visible)]="formularioDialog"
+                            [style]="{ width: '750px' }"
+                            header="Nueva Solicitud"
+                            [modal]="true"
+                            class="p-fluid"
+                        >
+                            <ng-template pTemplate="content">
+                                <div class="card px-6 py-6">
+                                    <div>
+                                        <h3>
+                                            <img
+                                                src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                                width="60"
+                                                height="60"
+                                                alt="COOPERATIVA"
+                                            />
+
+                                            COOPERATIVA DE AHORRO Y CREDITO<br />
+                                            SOCIETARIA "SAN MARTIN" RL<br />
+                                            SOLICITUD TOLERANCIA PARA
+                                            LACTANCIA<br />
+                                        </h3>
+
+                                        <!-- MODAL-->
+
+                                        <!-- MODAL-->
+
+                                        <div class="col-12">
+                                            <div class="card px-8 py-8">
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        class="form-label"
+                                                        >Nombre
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="Olga Mamani Alejo"
+                                                    />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        class="form-label"
+                                                        >Cargo
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="Sistemas"
+                                                    />
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlTextarea1"
+                                                        class="form-label"
+                                                        >Motivo
+                                                    </label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        id="exampleFormControlTextarea1"
+                                                        rows="3"
+                                                    ></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >De Fecha</label
+                                                    >
+                                                    <input
+                                                        type="date"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="15/05/2022"
+                                                    />
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >A Fecha</label
+                                                    >
+                                                    <input
+                                                        type="date"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="15/05/2022"
+                                                    />
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >De Horas</label
+                                                    >
+                                                    <input
+                                                        type="time"
+                                                        id="exampleFormControlInput1"
+                                                    />
+                                                    <label
+                                                        for="exampleFormControlInput1"
+                                                        >A Horas</label
+                                                    >
+                                                    <input
+                                                        type="time"
+                                                        id="exampleFormControlInput1"
+                                                    />
+                                                </div>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    label="GUARDAR"
+                                                    icon="pi pi-check"
+                                                    class="
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    label="CANCELAR"
+                                                    icon="pi pi-check"
+                                                    class="p-button-danger"
+                                                ></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <button
+                                    pButton
+                                    pRipple
+                                    label="Cancel"
+                                    icon="pi pi-times"
+                                    class="p-button-text"
+                                    (click)="hideDialog()"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    label="Save"
+                                    icon="pi pi-check"
+                                    class="p-button-text"
+                                ></button>
+                            </ng-template>
+                        </p-dialog>
                     </div>
                 </mat-tab>
 
@@ -227,104 +519,218 @@
 
                 <mat-tab label="Formulario 3">
                     <h5>3.- SOLICITUD PERMISO</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD PERMISO<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    SOLICITUD PERMISO<br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>
@@ -335,153 +741,268 @@
 
                 <mat-tab label="Formulario 4">
                     <h5>4.- PAPELETA DE COMISION</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                PAPELETA DE COMISION<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Tipo de Licencia:
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Tiempo:
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >De Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Fecha</label
-                                        >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >Retorno Fecha</label
-                                        >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Observaciones:
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
 
-                                    <!--div class="align-items-center">
-                                        <label
-                                            ><h5>
-                                                <p>Firma Funcionario</p>
-                                                <p>Firma Area Solicitante</p>
-                                                <p>Firma Autorizada</p>
-                                            </h5></label
-                                        >
-                                    </div-->
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
 
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    PAPELETA DE COMISION<br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Tipo de Licencia:
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Tiempo:
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Retorno Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Observaciones:
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+
+                                        <!--div class="align-items-center">
+                                            <label
+                                                ><h5>
+                                                    <p>Firma Funcionario</p>
+                                                    <p>Firma Area Solicitante</p>
+                                                    <p>Firma Autorizada</p>
+                                                </h5></label
+                                            >
+                                        </div-->
+
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -492,104 +1013,219 @@
 
                 <mat-tab label="Formulario 5">
                     <h5>5.- SOLICITUD PERMISO POR MATRIMONIO</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD PERMISO POR MATRIMONIO<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    SOLICITUD PERMISO POR MATRIMONIO<br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>
@@ -600,104 +1236,218 @@
 
                 <mat-tab label="Formulario 6">
                     <h5>6.- SOLICITUD PERMISO POR FALLECIMIENTO</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD PERMISO POR FALLECIMIENTO<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    SOLICITUD PERMISO POR FALLECIMIENTO<br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>
@@ -708,104 +1458,219 @@
 
                 <mat-tab label="Formulario 7">
                     <h5>7.- SOLICITUD PERMISO POR PATERNIDAD</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD PERMISO POR PATERNIDAD <br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    SOLICITUD PERMISO POR PATERNIDAD <br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>
@@ -816,104 +1681,219 @@
 
                 <mat-tab label="Formulario 8">
                     <h5>8.- SOLICITUD PERMISO POR CUMPLEAÑOS</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD PERMISO POR CUMPLEAÑOS <br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    SOLICITUD PERMISO POR CUMPLEAÑOS <br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>
@@ -924,104 +1904,218 @@
 
                 <mat-tab label="Formulario 9">
                     <h5>9.- SOLICITUD PERMISO SEGUN RM 268/11</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                SOLICITUD PERMISO SEGUN RM 268/11<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    SOLICITUD PERMISO SEGUN RM 268/11<br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>
@@ -1032,104 +2126,219 @@
 
                 <mat-tab label="Formulario 10">
                     <h5>10.- PAPELETA DE LICENCIA Y/O VACACION</h5>
-                    <div class="card px-6 py-6">
-                        <div>
-                            <h3>
-                                <img
-                                    src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
-                                    width="60"
-                                    height="60"
-                                    alt="COOPERATIVA"
-                                />
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
 
-                                COOPERATIVA DE AHORRO Y CREDITO<br />
-                                SOCIETARIA "SAN MARTIN" RL<br />
-                                PAPELETA DE LICENCIA Y/O VACACION<br />
-                            </h3>
-
-                            <!-- MODAL-->
-
-                            <!-- MODAL-->
-
-                            <div class="col-12">
-                                <div class="card px-8 py-8">
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Olga Mamani Alejo"
-                                        />
+                            <p-toolbar styleClass="mb-4">
+                                <ng-template pTemplate="left">
+                                    <div class="my-2">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="New"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label"
-                                            >Cargo
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="exampleFormControlInput1"
-                                            placeholder="Sistemas"
-                                        />
-                                    </div>
+                                </ng-template>
+                            </p-toolbar>
 
-                                    <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Motivo
-                                        </label>
-                                        <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                        ></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1"
-                                            >Fecha</label
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="[
+                                    'nombres',
+                                    'paterno',
+                                    'materno',
+                                    'numeroDocumento'
+                                ]"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
                                         >
-                                        <input
-                                            type="date"
-                                            id="exampleFormControlInput1"
-                                            placeholder="15/05/2022"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >De Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
-                                        <label for="exampleFormControlInput1"
-                                            >A Horas</label
-                                        >
-                                        <input
-                                            type="time"
-                                            id="exampleFormControlInput1"
-                                        />
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr>
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-pencil"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-success
+                                                        mr-2
+                                                    "
+                                                    (click)="
+                                                        editFormularioUsuario(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                                <button
+                                                    pButton
+                                                    pRipple
+                                                    icon="pi pi-print"
+                                                    class="
+                                                        p-button-rounded
+                                                        p-button-warning
+                                                    "
+                                                    (click)="
+                                                        ImprimirForm(
+                                                            formularioUsuario
+                                                        )
+                                                    "
+                                                ></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
+                        <div class="card px-6 py-6">
+                            <div>
+                                <h3>
+                                    <img
+                                        src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                                        width="60"
+                                        height="60"
+                                        alt="COOPERATIVA"
+                                    />
+
+                                    COOPERATIVA DE AHORRO Y CREDITO<br />
+                                    SOCIETARIA "SAN MARTIN" RL<br />
+                                    PAPELETA DE LICENCIA Y/O VACACION<br />
+                                </h3>
+
+                                <!-- MODAL-->
+
+                                <!-- MODAL-->
+
+                                <div class="col-12">
+                                    <div class="card px-8 py-8">
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Olga Mamani Alejo"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                class="form-label"
+                                                >Cargo
+                                            </label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="exampleFormControlInput1"
+                                                placeholder="Sistemas"
+                                            />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlTextarea1"
+                                                class="form-label"
+                                                >Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >Fecha</label
+                                            >
+                                            <input
+                                                type="date"
+                                                id="exampleFormControlInput1"
+                                                placeholder="15/05/2022"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >De Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                            <label
+                                                for="exampleFormControlInput1"
+                                                >A Horas</label
+                                            >
+                                            <input
+                                                type="time"
+                                                id="exampleFormControlInput1"
+                                            />
+                                        </div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="GUARDAR"
+                                            icon="pi pi-check"
+                                            class="p-button-success mr-2"
+                                        ></button>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="CANCELAR"
+                                            icon="pi pi-check"
+                                            class="p-button-danger"
+                                        ></button>
                                     </div>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="GUARDAR"
-                                        icon="pi pi-check"
-                                        class="p-button-success mr-2"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        label="CANCELAR"
-                                        icon="pi pi-check"
-                                        class="p-button-danger"
-                                    ></button>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { FormularioUsuario } from 'src/app/api/formularioUsuario';
+//import { FormularioService } from 'src/app/services/formulario.service';
 
 export interface PeriodicElement {
     position: number;
@@ -75,6 +79,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     templateUrl: './formularioUsuarios.component.html',
 
     styleUrls: ['formularioUsuarios-routing.css'],
+    providers: [MessageService],
 })
 export class FormularioUsuariosComponent implements OnInit {
     displayedColumns: string[] = ['position', 'name', 'tipo', 'estado'];
@@ -83,6 +88,42 @@ export class FormularioUsuariosComponent implements OnInit {
     items: MenuItem[] = [];
 
     cardMenu: MenuItem[] = [];
+    formularioDialog: Boolean = false;
+    formularioDialog2: [] = [];
+    formularioUsuario: Partial<FormularioUsuario> = {};
+    formularioUsuarios: FormularioUsuario[] = [];
+
+    submitted: boolean = false;
+
+    cols: Array<{
+        field: string;
+        header: string;
+    }> = [];
+
+    statuses: any[] = [];
+
+    rowsPerPageOptions = [5, 10, 20];
+
+    /* constructor(
+        private formularioUsuarioService: FormularioService,
+        private messageService: MessageService
+    ) {}*/
+    /* getFormularioUsuarios() {
+        this.formularioUsuarioService.get().subscribe({
+            next: (response) => {
+                this.formularioUsuarios = response;
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
+            },
+        });
+    }*/
 
     ngOnInit() {
         this.items = [
@@ -112,5 +153,80 @@ export class FormularioUsuariosComponent implements OnInit {
                 icon: 'pi pi-fw pi-trash',
             },
         ];
+        // this.getFormularioUsuarios();
+        this.cols = [{ field: 'nombre', header: 'Nombre Formulario' }];
+        //this.formularioDialog2= [ 'dialog1','dialog2'];
+
+        this.statuses = [
+            { label: 'ACTIVO', value: true },
+            { label: 'INACTIVO', value: false },
+        ];
     }
+
+    openNew() {
+        this.formularioUsuario = {};
+        this.submitted = false;
+        this.formularioDialog = true;
+    }
+    openNew2(int: number) {
+        this.formularioUsuario = {};
+        this.submitted = false;
+        //  this.formularioDialog2[int] = true;
+        console.log(this.formularioDialog2, +'formularios');
+    }
+
+    hideDialog() {
+        this.formularioDialog = false;
+        this.submitted = false;
+    }
+
+    /* saveFormularioUsuario() {
+        this.submitted = true;
+
+        this.formularioUsuarioService
+            .create({
+                ...this.formularioUsuario,
+            })
+            .subscribe({
+                next: (response) => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Registrado!',
+                        detail: 'FormularioUsuario registrada exitosamente',
+                        life: 3000,
+                    });
+                    this.getFormularioUsuarios();
+                },
+                error: (err) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: 'Error al registrar la formularioUsuario.',
+                        life: 3000,
+                    });
+                },
+            });
+
+        // this.formularioUsuarios = [...this.formularioUsuarios];
+        this.formularioDialog = false;
+        this.formularioUsuario = {};
+    }*/
+
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
+    }
+
+    editFormularioUsuario(formularioUsuario: FormularioUsuario) {
+        this.formularioUsuario = { ...formularioUsuario };
+        this.formularioDialog = true;
+    }
+
+    ImprimirForm(formularioUsuario: FormularioUsuario) {
+        this.formularioUsuario = { ...formularioUsuario };
+        this.formularioDialog = true;
+    }
+    //public openPDF(): void {
 }

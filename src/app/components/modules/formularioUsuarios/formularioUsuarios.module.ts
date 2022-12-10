@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormularioUsuariosComponent } from './formularioUsuarios.component';
+
 import { FormularioUsuariosRoutingModule } from './formularioUsuarios-routing.module';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
@@ -18,6 +19,9 @@ import { PanelModule } from 'primeng/panel';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
     imports: [
@@ -39,6 +43,9 @@ import { MatButtonModule } from '@angular/material/button';
         MatTabsModule,
         MatTableModule,
         MatButtonModule,
+        DialogModule,
+        TableModule,
+        ToastModule,
     ],
     declarations: [FormularioUsuariosComponent],
 })
