@@ -16,12 +16,13 @@ import { environment } from '../environments/environment';
 import { UsuarioService } from './services/usuario.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PersonaService } from './services/persona.service';
+import { FormularioService } from './services/formulario.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [AppRoutingModule, AppLayoutModule],
     providers: [
-        { provide: "BASE_API_URL", useValue: environment.backUrl },
+        { provide: 'BASE_API_URL', useValue: environment.backUrl },
         // httpClient interceptors
         {
             provide: HTTP_INTERCEPTORS,
@@ -30,15 +31,16 @@ import { PersonaService } from './services/persona.service';
         },
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, // demo
-        CustomerService,// demo
-        EventService,// demo
-        IconService,// demo
-        NodeService,// demo
-        PhotoService,// demo
-        ProductService,// demo
+        CustomerService, // demo
+        EventService, // demo
+        IconService, // demo
+        NodeService, // demo
+        PhotoService, // demo
+        ProductService, // demo
         // mis servicios
         UsuarioService,
         PersonaService,
+        FormularioService,
     ],
     bootstrap: [AppComponent],
 })

@@ -55,11 +55,8 @@ export class SucursalesComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.getSucursales();
-        this.cols = [
-            { field: 'nombre', header: 'Nombre' },
-        ];
+        this.cols = [{ field: 'nombre', header: 'Nombre' }];
 
         this.statuses = [
             { label: 'ACTIVO', value: true },
@@ -89,45 +86,55 @@ export class SucursalesComponent implements OnInit {
 
     async confirmDeleteSelected() {
         this.deleteSucursalesDialog = false;
-        await Promise.all(this.selectedSucursales.map(async sucursal => {
-            if(sucursal.id){
-                return await this.sucursalService.delete(sucursal.id).subscribe({
-                    next: () => {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Eliminado!',
-                            detail: 'Sucursal eliminada exitosamente.',
-                            life: 3000,
+        await Promise.all(
+            this.selectedSucursales.map(async (sucursal) => {
+                if (sucursal.id) {
+                    return await this.sucursalService
+                        .delete(sucursal.id)
+                        .subscribe({
+                            next: () => {
+                                this.messageService.add({
+                                    severity: 'success',
+                                    summary: 'Eliminado!',
+                                    detail: 'Sucursal eliminada exitosamente.',
+                                    life: 3000,
+                                });
+                                this.sucursal = {};
+                                this.selectedSucursales =
+                                    this.selectedSucursales.filter(
+                                        (prs) => prs.id !== sucursal.id
+                                    );
+                                if (this.selectedSucursales.length === 0) {
+                                    this.selectedSucursales = [];
+                                    this.getSucursales();
+                                }
+                            },
+                            error: (err) => {
+                                this.messageService.add({
+                                    severity: 'error',
+                                    summary: 'Error!',
+                                    detail: `Error al eliminar la sucursal ${sucursal.nombre}.`,
+                                    life: 3000,
+                                });
+                                this.selectedSucursales =
+                                    this.selectedSucursales.filter(
+                                        (prs) => prs.id !== sucursal.id
+                                    );
+                                if (this.selectedSucursales.length === 0) {
+                                    this.selectedSucursales = [];
+                                    this.getSucursales();
+                                }
+                            },
                         });
-                        this.sucursal = {};
-                        this.selectedSucursales = this.selectedSucursales.filter(prs => prs.id !== sucursal.id);
-                        if(this.selectedSucursales.length === 0){
-                            this.selectedSucursales = []
-                            this.getSucursales()
-                        }
-                    },
-                    error: (err) => {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error!',
-                            detail: `Error al eliminar la sucursal ${sucursal.nombre}.`,
-                            life: 3000,
-                        });
-                        this.selectedSucursales = this.selectedSucursales.filter(prs => prs.id !== sucursal.id);
-                        if(this.selectedSucursales.length === 0){
-                            this.selectedSucursales = []
-                            this.getSucursales()
-                        }
-                    }
-                })
-            }
-            return undefined;
-        }))
+                }
+                return undefined;
+            })
+        );
     }
 
     confirmDelete() {
         this.deleteSucursalDialog = false;
-        if(this.sucursal.id){
+        if (this.sucursal.id) {
             this.sucursalService.delete(this.sucursal.id).subscribe({
                 next: () => {
                     this.messageService.add({
@@ -147,12 +154,12 @@ export class SucursalesComponent implements OnInit {
                         detail: 'Error al eliminar la sucursal.',
                         life: 3000,
                     });
-                }
-            })
+                },
+            });
         }
     }
 
-    cancelDelete(){
+    cancelDelete() {
         this.deleteSucursalDialog = false;
         this.sucursal = {};
     }
@@ -169,49 +176,53 @@ export class SucursalesComponent implements OnInit {
             if (this.sucursal.id) {
                 // @ts-ignore
                 // TODO: interactuar con back
-                this.sucursalService.update(this.sucursal.id, {
-                    ...this.sucursal,
-                }).subscribe({
-                    next: (response) => {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Actualizado!',
-                            detail: 'Sucursal actualizado exitosamente',
-                            life: 3000,
-                        });
-                        this.getSucursales();
-                    },
-                    error: (err) => {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error!',
-                            detail: 'Error al actualizar la sucursal.',
-                            life: 3000,
-                        });
-                    },
-                });
+                this.sucursalService
+                    .update(this.sucursal.id, {
+                        ...this.sucursal,
+                    })
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Actualizado!',
+                                detail: 'Sucursal actualizado exitosamente',
+                                life: 3000,
+                            });
+                            this.getSucursales();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al actualizar la sucursal.',
+                                life: 3000,
+                            });
+                        },
+                    });
             } else {
-                this.sucursalService.create({
-                    ...this.sucursal,
-                }).subscribe({
-                    next: (response) => {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Registrado!',
-                            detail: 'Sucursal registrado exitosamente',
-                            life: 3000,
-                        });
-                        this.getSucursales();
-                    },
-                    error: (err) => {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error!',
-                            detail: 'Error al registrar la sucursal.',
-                            life: 3000,
-                        });
-                    },
-                });
+                this.sucursalService
+                    .create({
+                        ...this.sucursal,
+                    })
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Registrado!',
+                                detail: 'Sucursal registrado exitosamente',
+                                life: 3000,
+                            });
+                            this.getSucursales();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al registrar la sucursal.',
+                                life: 3000,
+                            });
+                        },
+                    });
             }
 
             // this.sucursales = [...this.sucursales];

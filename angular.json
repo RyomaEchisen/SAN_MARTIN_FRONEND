@@ -23,16 +23,13 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.scss"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles.scss"],
                         "scripts": [
                             "node_modules/prismjs/prism.js",
-                            "node_modules/prismjs/components/prism-typescript.js"
+                            "node_modules/prismjs/components/prism-typescript.js",
+                            "node_modules/html2canvas/dist/html2canvas.min.js",
+                            "node_modules/jspdf/dist/jspdf.es.min.js"
                         ],
                         "allowedCommonJsDependencies": ["chart.js"]
                     },
@@ -98,13 +95,8 @@
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.scss"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles.scss"],
                         "scripts": []
                     }
                 }
@@ -113,6 +105,6 @@
     },
     "defaultProject": "sakai",
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }

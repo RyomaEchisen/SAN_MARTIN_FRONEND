@@ -27,7 +27,7 @@
                     </div>
                 </ng-template>
 
-                <ng-template pTemplate="right">
+                <!--ng-template pTemplate="right">
                     <p-fileUpload
                         mode="basic"
                         accept="image/*"
@@ -44,7 +44,7 @@
                         class="p-button-help"
                         (click)="dt.exportCSV()"
                     ></button>
-                </ng-template>
+                </ng-template-->
             </p-toolbar>
 
             <p-table
@@ -53,7 +53,12 @@
                 [columns]="cols"
                 responsiveLayout="scroll"
                 [rows]="20"
-                [globalFilterFields]="['nombres', 'paterno', 'materno', 'numeroDocumento']"
+                [globalFilterFields]="[
+                    'nombres',
+                    'paterno',
+                    'materno',
+                    'numeroDocumento'
+                ]"
                 [paginator]="true"
                 [rowsPerPageOptions]="[20]"
                 [showCurrentPageReport]="true"
@@ -78,10 +83,7 @@
                                 pButton
                                 pRipple
                                 icon="pi pi-refresh"
-                                class="
-                                    p-button-rounded p-button-info
-                                    mr-2
-                                "
+                                class="p-button-rounded p-button-info mr-2"
                                 (click)="getPersonas()"
                             ></button>
                             <span class="block mt-2 md:mt-0 p-input-icon-left">
@@ -120,9 +122,19 @@
                             ></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of cols">
-                            <div *ngIf="col.field=='funcionario'; else elseFuncField">
-                                <div *ngIf="persona.funcionarios.length>0; else elseFuncExist">
-                                    {{persona.funcionarios[0].cargo}}
+                            <div
+                                *ngIf="
+                                    col.field == 'funcionario';
+                                    else elseFuncField
+                                "
+                            >
+                                <div
+                                    *ngIf="
+                                        persona.funcionarios.length > 0;
+                                        else elseFuncExist
+                                    "
+                                >
+                                    {{ persona.funcionarios[0].cargo }}
                                 </div>
                                 <ng-template #elseFuncExist>
                                     <button
@@ -130,15 +142,14 @@
                                         pRipple
                                         icon="pi pi-plus"
                                         label="ASIGNAR"
-                                        class="
-                                            p-button p-button-success
-                                        "
+                                        class="p-button p-button-success"
                                         (click)="onAsignarFuncionario(persona)"
-                                    >
-                                    </button>
+                                    ></button>
                                 </ng-template>
                             </div>
-                            <ng-template #elseFuncField> <span>{{ persona[col.field] }}</span> </ng-template>
+                            <ng-template #elseFuncField>
+                                <span>{{ persona[col.field] }}</span>
+                            </ng-template>
                         </td>
                         <td>
                             <div class="flex">
@@ -184,8 +195,7 @@
                         required
                         autofocus
                         [ngClass]="{
-                            'ng-invalid ng-dirty':
-                                submitted && !persona.nombres
+                            'ng-invalid ng-dirty': submitted && !persona.nombres
                         }"
                     />
                     <small
@@ -204,8 +214,7 @@
                         required
                         autofocus
                         [ngClass]="{
-                            'ng-invalid ng-dirty':
-                                submitted && !persona.paterno
+                            'ng-invalid ng-dirty': submitted && !persona.paterno
                         }"
                     />
                 </div>
@@ -219,8 +228,7 @@
                         required
                         autofocus
                         [ngClass]="{
-                            'ng-invalid ng-dirty':
-                                submitted && !persona.materno
+                            'ng-invalid ng-dirty': submitted && !persona.materno
                         }"
                     />
                 </div>
@@ -264,8 +272,7 @@
                         required
                         autofocus
                         [ngClass]="{
-                            'ng-invalid ng-dirty':
-                                submitted && !persona.correo
+                            'ng-invalid ng-dirty': submitted && !persona.correo
                         }"
                     />
                 </div>
@@ -450,6 +457,9 @@
                 ></button>
             </ng-template>
         </p-dialog>
-        <app-funcionario-form-dialog #dialogFunc (save)="onSaveFuncionario($event)"></app-funcionario-form-dialog>
+        <app-funcionario-form-dialog
+            #dialogFunc
+            (save)="onSaveFuncionario($event)"
+        ></app-funcionario-form-dialog>
     </div>
 </div>

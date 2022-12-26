@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormularioUsuariosComponent } from './formularioUsuarios.component';
-
 import { FormularioUsuariosRoutingModule } from './formularioUsuarios-routing.module';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';

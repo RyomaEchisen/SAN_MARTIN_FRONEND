@@ -4,57 +4,86 @@
             <mat-tab-group>
                 <mat-tab label="Formulario 1">
                     <h5>1.- SOLICITUD TRABAJO FUERA DE HORAS NORMALES</h5>
-                    <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-elevation-z8"
-                    >
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
-
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef>No.</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.position }}
-                            </td>
-                        </ng-container>
-
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>
-                                Formularios Recibidos
-                            </th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.name }}
-                            </td>
-                        </ng-container>
-
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="tipo">
-                            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.tipo }}
-                            </td>
-                        </ng-container>
-
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="estado">
-                            <th mat-header-cell *matHeaderCellDef>Estado</th>
-                            <td mat-cell *matCellDef="let element">
-                                {{ element.estado }}
-                            </td>
-                        </ng-container>
-
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
-                    </table>
+                    <div class="col-12">
+                        <div class="card px-6 py-6">
+                            <p-toast></p-toast>
+                            <p-table
+                                #dt
+                                [value]="formularioUsuarios"
+                                [columns]="cols"
+                                responsiveLayout="scroll"
+                                [rows]="20"
+                                [globalFilterFields]="['nombre']"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[20]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                selectionMode="multiple"
+                                [rowHover]="true"
+                                dataKey="id"
+                            >
+                                <ng-template pTemplate="caption">
+                                    <div
+                                        class="
+                                            flex flex-column
+                                            md:flex-row
+                                            md:justify-content-between
+                                            md:align-items-center
+                                        "
+                                    ></div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngFor="let col of cols"
+                                            [pSortableColumn]="col.field"
+                                        >
+                                            {{ col.header }}
+                                            <p-sortIcon
+                                                field="code"
+                                            ></p-sortIcon>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-formularioUsuario
+                                >
+                                    <tr
+                                        *ngIf="
+                                            formularioUsuario['tipoF'] == '1'
+                                        "
+                                    >
+                                        <td *ngFor="let col of cols">
+                                            <span>{{
+                                                formularioUsuario[col.field]
+                                            }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="flex">
+                                                <!--button
+                                                        pButton
+                                                        pRipple
+                                                        icon="pi pi-pencil"
+                                                        class="
+                                                            p-button-rounded
+                                                            p-button-success
+                                                            mr-2
+                                                        "
+                                                        (click)="
+                                                            editFormularioUsuario(
+                                                                formularioUsuario
+                                                            )
+                                                        "
+                                                    ></button-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
                 </mat-tab>
 
                 <mat-tab label="Formulario 2">

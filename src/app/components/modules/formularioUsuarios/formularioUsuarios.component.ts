@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { FormularioUsuario } from 'src/app/api/formularioUsuario';
-//import { FormularioService } from 'src/app/services/formulario.service';
+import { FormularioService } from 'src/app/services/formulario.service';
+
+////
+import jsPDF from 'jspdf';
+import 'jspdf/dist/polyfills.es.js';
+import html2canvas from 'html2canvas';
 
 export interface PeriodicElement {
     position: number;
@@ -82,16 +87,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
     providers: [MessageService],
 })
 export class FormularioUsuariosComponent implements OnInit {
-    displayedColumns: string[] = ['position', 'name', 'tipo', 'estado'];
-    dataSource = ELEMENT_DATA;
+    formularioUsuarioDialog: boolean = false;
 
-    items: MenuItem[] = [];
+    deleteFormularioUsuarioDialog: boolean = false;
 
-    cardMenu: MenuItem[] = [];
-    formularioDialog: Boolean = false;
-    formularioDialog2: [] = [];
+    deleteFormularioUsuarioesDialog: boolean = false;
+
+    formularioUsuarioes: FormularioUsuario[] = [];
+
     formularioUsuario: Partial<FormularioUsuario> = {};
-    formularioUsuarios: FormularioUsuario[] = [];
+
+    selectedFormularioUsuarioes: FormularioUsuario[] = [];
 
     submitted: boolean = false;
 
@@ -100,15 +106,43 @@ export class FormularioUsuariosComponent implements OnInit {
         header: string;
     }> = [];
 
+    cols2: Array<{
+        field2: string;
+        header2: string;
+    }> = [];
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
 
-    /* constructor(
+    displayedColumns: string[] = ['position', 'name', 'tipo', 'estado'];
+    dataSource = ELEMENT_DATA;
+
+    items: MenuItem[] = [];
+
+    cardMenu: MenuItem[] = [];
+    formularioDialog: Boolean = false;
+    printDialog: Boolean = false;
+    formularioDialog2: [] = [];
+    //formularioUsuario: Partial<FormularioUsuario> = {};
+    formularioUsuarios: FormularioUsuario[] = [];
+
+    //submitted: boolean = false;
+
+    /* cols: Array<{
+        field: string;
+        header: string;
+    }> = [];*/
+
+    //statuses: any[] = [];
+
+    //rowsPerPageOptions = [5, 10, 20];
+    @ViewChild('htmlData') htmlData!: ElementRef;
+
+    constructor(
         private formularioUsuarioService: FormularioService,
         private messageService: MessageService
-    ) {}*/
-    /* getFormularioUsuarios() {
+    ) {}
+    getFormularioUsuarios() {
         this.formularioUsuarioService.get().subscribe({
             next: (response) => {
                 this.formularioUsuarios = response;
@@ -123,9 +157,15 @@ export class FormularioUsuariosComponent implements OnInit {
                 // console.log('error en servicio conexión back', err);
             },
         });
-    }*/
+    }
+    /*constructor(
+        private formularioUsuarioService: FormularioService,
+        private messageService: MessageService,
+    ) {}
+*/
 
     ngOnInit() {
+        this.getFormularioUsuarios();
         this.items = [
             {
                 label: 'Angular.io',
@@ -154,7 +194,16 @@ export class FormularioUsuariosComponent implements OnInit {
             },
         ];
         // this.getFormularioUsuarios();
-        this.cols = [{ field: 'nombre', header: 'Nombre Formulario' }];
+        this.cols = [
+            { field: 'nombre', header: 'Nombre Formulario' },
+            { field: 'tipoF', header: 'Tipo' },
+            { field: 'cargo', header: 'Cargo' },
+            { field: 'motivo', header: 'Motivo' },
+            { field: 'fecha', header: 'Fecha' },
+            { field: 'deHora', header: 'De Horas' },
+            { field: 'aHora', header: 'A Horas' },
+        ];
+
         //this.formularioDialog2= [ 'dialog1','dialog2'];
 
         this.statuses = [
@@ -162,55 +211,91 @@ export class FormularioUsuariosComponent implements OnInit {
             { label: 'INACTIVO', value: false },
         ];
     }
-
-    openNew() {
+    openNew(dato: string) {
         this.formularioUsuario = {};
+        this.formularioUsuario.tipoF = dato;
         this.submitted = false;
         this.formularioDialog = true;
     }
-    openNew2(int: number) {
+
+    /*openNew2(int: number) {
         this.formularioUsuario = {};
         this.submitted = false;
         //  this.formularioDialog2[int] = true;
         console.log(this.formularioDialog2, +'formularios');
-    }
+    }*/
 
     hideDialog() {
         this.formularioDialog = false;
         this.submitted = false;
     }
 
-    /* saveFormularioUsuario() {
+    saveFormularioUsuario() {
         this.submitted = true;
-
-        this.formularioUsuarioService
-            .create({
-                ...this.formularioUsuario,
-            })
-            .subscribe({
-                next: (response) => {
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Registrado!',
-                        detail: 'FormularioUsuario registrada exitosamente',
-                        life: 3000,
+        console.log('HOLA' + this.formularioUsuario.tipoF);
+        if (this.formularioUsuario.nombre?.trim()) {
+            if (this.formularioUsuario.id) {
+                // @ts-ignore
+                // TODO: interactuar con back
+                this.formularioUsuarioService
+                    .update(this.formularioUsuario.id, {
+                        ...this.formularioUsuario,
+                    })
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Actualizado!',
+                                detail: 'Formulario actualizada exitosamente',
+                                life: 3000,
+                            });
+                            this.getFormularioUsuarios();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al actualizar la formularioUsuario.',
+                                life: 3000,
+                            });
+                        },
                     });
-                    this.getFormularioUsuarios();
-                },
-                error: (err) => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error!',
-                        detail: 'Error al registrar la formularioUsuario.',
-                        life: 3000,
-                    });
-                },
-            });
+            } else {
+                this.formularioUsuarioService
+                    .create({
+                        ...this.formularioUsuario,
+                    })
 
-        // this.formularioUsuarios = [...this.formularioUsuarios];
-        this.formularioDialog = false;
-        this.formularioUsuario = {};
-    }*/
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Registrado!',
+                                detail: 'Formulario registrada exitosamente',
+                                life: 3000,
+                            });
+                            this.getFormularioUsuarios();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al registrar la formularioUsuario.',
+                                life: 3000,
+                            });
+                        },
+                    });
+                console.log(
+                    'formularioUsuarioService' + this.formularioUsuario
+                );
+            }
+
+            // this.formularioUsuarios = [...this.formularioUsuarios];
+            this.formularioDialog = false;
+
+            this.formularioUsuario = {};
+        }
+    }
 
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal(
@@ -229,4 +314,36 @@ export class FormularioUsuariosComponent implements OnInit {
         this.formularioDialog = true;
     }
     //public openPDF(): void {
+
+    findIndexById(id: number): number {
+        let index = -1;
+        for (let i = 0; i < this.formularioUsuarios.length; i++) {
+            if (this.formularioUsuarios[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    VerForm(formularioUsuario: FormularioUsuario) {
+        this.formularioUsuario = { ...formularioUsuario };
+        this.printDialog = true;
+    }
+    hideVerDialog() {
+        this.printDialog = false;
+        //this.submitted = false;
+    }
+    makePdf() {
+        let DATA: any = document.getElementById('htmlData');
+        html2canvas(DATA).then((canvas) => {
+            let fileWidth = 208;
+            let fileHeight = (canvas.height * fileWidth) / canvas.width;
+            const FILEURI = canvas.toDataURL('image/png');
+            let PDF = new jsPDF('p', 'mm', 'a4');
+            let position = 0;
+            PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+            // window.open(PDF.output('bloburl'));
+            PDF.save('angular-demo.pdf');
+        });
+    }
 }

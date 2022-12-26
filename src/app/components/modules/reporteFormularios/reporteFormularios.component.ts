@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { FormularioUsuario } from 'src/app/api/formularioUsuario';
+import { FormularioService } from 'src/app/services/formulario.service';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 export interface PeriodicElement {
     position: number;
@@ -79,12 +83,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ReporteFormulariosComponent implements OnInit {
     displayedColumns: string[] = ['position', 'name', 'tipo', 'estado'];
     dataSource = ELEMENT_DATA;
+    formularioUsuarioes: FormularioUsuario[] = [];
+
+    formularioUsuario: Partial<FormularioUsuario> = {};
 
     items: MenuItem[] = [];
+    formularioUsuarios: FormularioUsuario[] = [];
+    formularioDialog: Boolean = false;
+    printDialog: Boolean = false;
+    cols: Array<{
+        field: string;
+        header: string;
+    }> = [];
 
     cardMenu: MenuItem[] = [];
-
+    constructor(
+        private formularioUsuarioService: FormularioService,
+        private messageService: MessageService
+    ) {}
+    getFormularioUsuarios() {
+        this.formularioUsuarioService.get().subscribe({
+            next: (response) => {
+                this.formularioUsuarios = response;
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
+            },
+        });
+    }
     ngOnInit() {
+        this.getFormularioUsuarios();
         this.items = [
             {
                 label: 'Angular.io',
@@ -112,5 +146,20 @@ export class ReporteFormulariosComponent implements OnInit {
                 icon: 'pi pi-fw pi-trash',
             },
         ];
+        this.cols = [
+            { field: 'nombre', header: 'Nombre Formulario' },
+            { field: 'tipoF', header: 'Tipo' },
+            { field: 'cargo', header: 'Cargo' },
+            { field: 'motivo', header: 'Motivo' },
+            { field: 'fecha', header: 'Fecha' },
+            { field: 'deHora', header: 'De Horas' },
+            { field: 'aHora', header: 'A Horas' },
+        ];
+    }
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
     }
 }

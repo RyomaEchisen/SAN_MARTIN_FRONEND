@@ -2,6 +2,7 @@ import { Usuario } from './usuario';
 
 export interface FormularioUsuario {
     id: number;
+    tipoF: string;
     nombre: string;
     cargo: string;
     motivo: string;
