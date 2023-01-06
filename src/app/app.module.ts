@@ -17,6 +17,7 @@ import { UsuarioService } from './services/usuario.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PersonaService } from './services/persona.service';
 import { FormularioService } from './services/formulario.service';
+import { RolesService } from './services/roles.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -41,6 +42,7 @@ import { FormularioService } from './services/formulario.service';
         UsuarioService,
         PersonaService,
         FormularioService,
+        RolesService,
     ],
     bootstrap: [AppComponent],
 })

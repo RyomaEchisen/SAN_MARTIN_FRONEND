@@ -3,6 +3,11 @@ import { Usuario } from 'src/app/api/usuario';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Persona } from 'src/app/api/persona';
+import { PersonaService } from 'src/app/services/persona.service';
+import { FormControl } from '@angular/forms';
+import { RolesService } from 'src/app/services/roles.service';
+import { Rol } from 'src/app/api/rol';
 
 interface Food {
     value: string;
@@ -23,6 +28,12 @@ export class UsuariosComponent implements OnInit {
 
     usuarios: Usuario[] = [];
 
+    personas: Persona[] = [];
+
+    roles: Rol[] = [];
+
+    usuarioPersonas: Partial<Persona> = {};
+
     usuario: Partial<Usuario> = {};
 
     selectedUsuarios: Usuario[] = [];
@@ -40,7 +51,9 @@ export class UsuariosComponent implements OnInit {
 
     constructor(
         private usuarioService: UsuarioService,
-        private messageService: MessageService
+        private personaService: PersonaService,
+        private messageService: MessageService,
+        private rolesService: RolesService
     ) {}
     getUsuarios() {
         this.usuarioService.get().subscribe({
@@ -48,12 +61,54 @@ export class UsuariosComponent implements OnInit {
                 this.usuarios = response;
             },
             error: (err) => {
-                console.log('error en servicio conexion back', err);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
             },
         });
     }
+    getPersonas() {
+        this.personaService.get().subscribe({
+            next: (response) => {
+                this.personas = response;
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
+            },
+        });
+    }
+
+    getRoles() {
+        this.rolesService.get().subscribe({
+            next: (response) => {
+                this.roles = response;
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
+            },
+        });
+    }
+
     ngOnInit() {
         this.getUsuarios();
+        this.getPersonas();
+        this.getRoles();
         this.cols = [
             { field: 'username', header: 'Nombre de usuario' },
             { field: 'roles', header: 'Roles' },
@@ -179,6 +234,10 @@ export class UsuariosComponent implements OnInit {
 
     saveUsuario() {
         console.log(this.usuario);
+        console.log('USUARIO' + this.usuarioPersonas.nombres);
+        // console.log('USUARIO' + this.usuario.username=this.usuario.funcionario.);
+        this.usuario.username = this.usuarioPersonas.nombres;
+        //this.usuario.roles = [this.usuario.roles];
         this.submitted = true;
 
         if (this.usuario.username?.trim()) {

@@ -110,14 +110,14 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-usuario>
-                    <tr *ngFor="let usuarioRow of usuarios">
+                    <tr>
                         <td>
                             <p-tableCheckbox
-                                [value]="usuarioRow"
+                                [value]="usuario"
                             ></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of cols">
-                            {{ usuarioRow[col.field] }}
+                            <span>{{ usuario[col.field] }}</span>
                         </td>
                         <td>
                             <div class="flex">
@@ -129,14 +129,14 @@
                                         p-button-rounded p-button-success
                                         mr-2
                                     "
-                                    (click)="editUsuario(usuarioRow)"
+                                    (click)="editUsuario(usuario)"
                                 ></button>
                                 <button
                                     pButton
                                     pRipple
                                     icon="pi pi-trash"
                                     class="p-button-rounded p-button-warning"
-                                    (click)="deleteUsuario(usuarioRow)"
+                                    (click)="deleteUsuario(usuario)"
                                 ></button>
                             </div>
                         </td>
@@ -160,39 +160,29 @@
                     class="mt-0 mx-auto mb-5 block shadow-2"
                     *ngIf="usuario.avatar"
                 />
+
                 <div class="field">
-                    <label for="username">Funcionario</label>
-                    <input
-                        type="text"
-                        pInputText
-                        id="username"
-                        [(ngModel)]="usuario.username"
-                        required
-                        autofocus
-                        [ngClass]="{
-                            'ng-invalid ng-dirty':
-                                submitted && !usuario.username
-                        }"
-                    />
+                    <label>Funcionario</label>
+                    <p-dropdown
+                        [options]="personas"
+                        [(ngModel)]="usuarioPersonas"
+                        optionLabel="nombres"
+                    ></p-dropdown>
+
                     <small
                         class="ng-dirty ng-invalid"
-                        *ngIf="submitted && !usuario.username"
+                        *ngIf="submitted && !usuario.funcionario"
                         >El Funcionario es requerido.</small
                     >
                 </div>
+
                 <div class="field">
-                    <label for="username">Rol</label>
-                    <input
-                        type="text"
-                        pInputText
-                        id="roles"
+                    <label for="roles">Rol</label>
+                    <p-dropdown
+                        [options]="roles"
                         [(ngModel)]="usuario.roles"
-                        required
-                        autofocus
-                        [ngClass]="{
-                            'ng-invalid ng-dirty': submitted && !usuario.roles
-                        }"
-                    />
+                        optionLabel="nombre"
+                    ></p-dropdown>
                     <small
                         class="ng-dirty ng-invalid"
                         *ngIf="submitted && !usuario.roles"
