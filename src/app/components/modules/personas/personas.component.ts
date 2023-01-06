@@ -5,14 +5,18 @@ import { Table } from 'primeng/table';
 import { PersonaService } from 'src/app/services/persona.service';
 import { FuncionarioFormDialogComponent } from '../funcionarios/components/funcionario-form-dialog/funcionario-form-dialog.component';
 import { Funcionario } from 'src/app/api/funcionario';
+import { R3TargetBinder } from '@angular/compiler';
 
 @Component({
     templateUrl: './personas.component.html',
     providers: [MessageService],
 })
 export class PersonasComponent implements OnInit {
+    public archivos: any = [];
     // Components
-    @ViewChild('dialogFunc') dialogFunc: FuncionarioFormDialogComponent | undefined;
+    @ViewChild('dialogFunc') dialogFunc:
+        | FuncionarioFormDialogComponent
+        | undefined;
 
     personaDialog: boolean = false;
 
@@ -39,7 +43,7 @@ export class PersonasComponent implements OnInit {
 
     constructor(
         private personaService: PersonaService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     onAsignarFuncionario(persona: Persona) {
@@ -65,7 +69,6 @@ export class PersonasComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.getPersonas();
         this.cols = [
             { field: 'nombres', header: 'Nombres' },
@@ -105,45 +108,55 @@ export class PersonasComponent implements OnInit {
 
     async confirmDeleteSelected() {
         this.deletePersonasDialog = false;
-        await Promise.all(this.selectedPersonas.map(async persona => {
-            if(persona.id){
-                return await this.personaService.delete(persona.id).subscribe({
-                    next: () => {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Eliminado!',
-                            detail: 'Persona eliminada exitosamente.',
-                            life: 3000,
+        await Promise.all(
+            this.selectedPersonas.map(async (persona) => {
+                if (persona.id) {
+                    return await this.personaService
+                        .delete(persona.id)
+                        .subscribe({
+                            next: () => {
+                                this.messageService.add({
+                                    severity: 'success',
+                                    summary: 'Eliminado!',
+                                    detail: 'Persona eliminada exitosamente.',
+                                    life: 3000,
+                                });
+                                this.persona = {};
+                                this.selectedPersonas =
+                                    this.selectedPersonas.filter(
+                                        (prs) => prs.id !== persona.id
+                                    );
+                                if (this.selectedPersonas.length === 0) {
+                                    this.selectedPersonas = [];
+                                    this.getPersonas();
+                                }
+                            },
+                            error: (err) => {
+                                this.messageService.add({
+                                    severity: 'error',
+                                    summary: 'Error!',
+                                    detail: `Error al eliminar la persona ${persona.nombres}.`,
+                                    life: 3000,
+                                });
+                                this.selectedPersonas =
+                                    this.selectedPersonas.filter(
+                                        (prs) => prs.id !== persona.id
+                                    );
+                                if (this.selectedPersonas.length === 0) {
+                                    this.selectedPersonas = [];
+                                    this.getPersonas();
+                                }
+                            },
                         });
-                        this.persona = {};
-                        this.selectedPersonas = this.selectedPersonas.filter(prs => prs.id !== persona.id);
-                        if(this.selectedPersonas.length === 0){
-                            this.selectedPersonas = []
-                            this.getPersonas()
-                        }
-                    },
-                    error: (err) => {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error!',
-                            detail: `Error al eliminar la persona ${persona.nombres}.`,
-                            life: 3000,
-                        });
-                        this.selectedPersonas = this.selectedPersonas.filter(prs => prs.id !== persona.id);
-                        if(this.selectedPersonas.length === 0){
-                            this.selectedPersonas = []
-                            this.getPersonas()
-                        }
-                    }
-                })
-            }
-            return undefined;
-        }))
+                }
+                return undefined;
+            })
+        );
     }
 
     confirmDelete() {
         this.deletePersonaDialog = false;
-        if(this.persona.id){
+        if (this.persona.id) {
             this.personaService.delete(this.persona.id).subscribe({
                 next: () => {
                     this.messageService.add({
@@ -163,12 +176,12 @@ export class PersonasComponent implements OnInit {
                         detail: 'Error al eliminar la persona.',
                         life: 3000,
                     });
-                }
-            })
+                },
+            });
         }
     }
 
-    cancelDelete(){
+    cancelDelete() {
         this.deletePersonaDialog = false;
         this.persona = {};
     }
@@ -189,49 +202,53 @@ export class PersonasComponent implements OnInit {
             if (this.persona.id) {
                 // @ts-ignore
                 // TODO: interactuar con back
-                this.personaService.update(this.persona.id, {
-                    ...this.persona,
-                }).subscribe({
-                    next: (response) => {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Actualizado!',
-                            detail: 'Persona actualizada exitosamente',
-                            life: 3000,
-                        });
-                        this.getPersonas();
-                    },
-                    error: (err) => {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error!',
-                            detail: 'Error al actualizar la persona.',
-                            life: 3000,
-                        });
-                    },
-                });
+                this.personaService
+                    .update(this.persona.id, {
+                        ...this.persona,
+                    })
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Actualizado!',
+                                detail: 'Persona actualizada exitosamente',
+                                life: 3000,
+                            });
+                            this.getPersonas();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al actualizar la persona.',
+                                life: 3000,
+                            });
+                        },
+                    });
             } else {
-                this.personaService.create({
-                    ...this.persona,
-                }).subscribe({
-                    next: (response) => {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Registrado!',
-                            detail: 'Persona registrada exitosamente',
-                            life: 3000,
-                        });
-                        this.getPersonas();
-                    },
-                    error: (err) => {
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error!',
-                            detail: 'Error al registrar la persona.',
-                            life: 3000,
-                        });
-                    },
-                });
+                this.personaService
+                    .create({
+                        ...this.persona,
+                    })
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Registrado!',
+                                detail: 'Persona registrada exitosamente',
+                                life: 3000,
+                            });
+                            this.getPersonas();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al registrar la persona.',
+                                life: 3000,
+                            });
+                        },
+                    });
             }
 
             // this.personas = [...this.personas];
@@ -257,4 +274,9 @@ export class PersonasComponent implements OnInit {
             'contains'
         );
     }
+    //capturarFile(evento): any{
+    //  const archivoDoc= evento.target.files[0]
+    //this.archivos.push(archivoDoc)
+    // console.log(evento.target.files);
+    //}
 }

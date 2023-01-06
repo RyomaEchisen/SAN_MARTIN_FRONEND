@@ -1,6 +1,6 @@
-import { Evento } from "./evento";
-import { Funcionario } from "./funcionario";
-import { Rol } from "./rol";
+import { Evento } from './evento';
+import { Funcionario } from './funcionario';
+import { Rol } from './rol';
 
 export interface Persona {
     id: number;
@@ -31,7 +31,7 @@ export interface Persona {
     nacProvincia: string;
     nacionalidad: string;
     createFechacreacion: string | Date;
-    foto_id: string;
+    fotoId: string;
     numeroDeDependen: string;
     // RESIDENCIA
     resDepartamento: string;
@@ -42,7 +42,7 @@ export interface Persona {
     telfTrabajo: string;
 
     funcionarios: Array<Funcionario>;
-	// eventos: Array<Evento>;
+    // eventos: Array<Evento>;
     // avatar?: string;
 
     [index: string]: any;
