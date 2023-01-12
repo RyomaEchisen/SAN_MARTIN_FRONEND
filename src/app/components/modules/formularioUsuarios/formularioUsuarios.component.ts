@@ -9,6 +9,7 @@ import { FormularioService } from 'src/app/services/formulario.service';
 import jsPDF from 'jspdf';
 import 'jspdf/dist/polyfills.es.js';
 import html2canvas from 'html2canvas';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 export interface PeriodicElement {
     position: number;
@@ -140,7 +141,8 @@ export class FormularioUsuariosComponent implements OnInit {
 
     constructor(
         private formularioUsuarioService: FormularioService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private usuarioService: UsuarioService
     ) {}
     getFormularioUsuarios() {
         this.formularioUsuarioService.get().subscribe({
@@ -202,6 +204,7 @@ export class FormularioUsuariosComponent implements OnInit {
             { field: 'fecha', header: 'Fecha' },
             { field: 'deHora', header: 'De Horas' },
             { field: 'aHora', header: 'A Horas' },
+            { field: 'usuario', header: 'Usuario' },
         ];
 
         //this.formularioDialog2= [ 'dialog1','dialog2'];
@@ -216,6 +219,12 @@ export class FormularioUsuariosComponent implements OnInit {
         this.formularioUsuario.tipoF = dato;
         this.submitted = false;
         this.formularioDialog = true;
+        this.formularioUsuario.usuario = this.usuarioService.getUser();
+        this.formularioUsuario.nombre = this.usuarioService.getUser().username;
+        this.formularioUsuario.cargo = this.usuarioService.getUser().cargo;
+
+        console.log('asi');
+        console.log(this.usuarioService.getUser().username);
     }
 
     /*openNew2(int: number) {

@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PersonaService } from './services/persona.service';
 import { FormularioService } from './services/formulario.service';
 import { RolesService } from './services/roles.service';
+import { authInterceptorProviders } from './services/auth.interceptor';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -43,6 +44,7 @@ import { RolesService } from './services/roles.service';
         PersonaService,
         FormularioService,
         RolesService,
+        authInterceptorProviders,
     ],
     bootstrap: [AppComponent],
 })

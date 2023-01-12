@@ -144,7 +144,35 @@
                 </ng-template>
             </p-table>
         </div>
-
+        <p-dialog
+            [(visible)]="deleteUsuarioDialog"
+            [style]="{ width: '450px' }"
+            header="Eliminar Usuario"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <h6>Esta seguro de eliminar la usuario?</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Cancelar"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="cancelDelete()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Eliminar"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="confirmDelete()"
+                ></button>
+            </ng-template>
+        </p-dialog>
         <p-dialog
             [(visible)]="usuarioDialog"
             [style]="{ width: '450px' }"
@@ -183,10 +211,41 @@
                         [(ngModel)]="usuario.roles"
                         optionLabel="nombre"
                     ></p-dropdown>
+
                     <small
                         class="ng-dirty ng-invalid"
                         *ngIf="submitted && !usuario.roles"
                         >El rol es requerido.</small
+                    >
+                </div>
+                <div>
+                    <label class="control-label">Tipo de Operacion:</label>
+                    <select class="form-control" [(ngModel)]="usuario.roles">
+                        <option [ngValue]="undefined">
+                            Seleccione el tipo de Operacion
+                        </option>
+                        <option *ngFor="let rol of roles" [ngValue]="rol">
+                            {{ rol.nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="cargo">Cargo</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="cargo"
+                        [(ngModel)]="usuario.cargo"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !usuario.cargo
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !usuario.cargo"
+                        >El cargo es requerido</small
                     >
                 </div>
                 <div class="field">

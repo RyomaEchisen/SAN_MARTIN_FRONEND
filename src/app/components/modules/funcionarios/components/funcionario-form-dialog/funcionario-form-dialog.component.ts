@@ -26,8 +26,8 @@ export class FuncionarioFormDialogComponent implements OnInit {
     constructor(
         private readonly sucursalService: SucursalService,
         private readonly funcionarioService: FuncionarioService,
-        private messageService: MessageService,
-    ) { }
+        private messageService: MessageService
+    ) {}
 
     ngOnInit(): void {
         this.funcionario = {};
@@ -46,35 +46,37 @@ export class FuncionarioFormDialogComponent implements OnInit {
                     detail: `Error al recuperar las sucursales.`,
                     life: 3000,
                 });
-            }
+            },
         });
     }
 
     onSave() {
-        this.funcionarioService.create({
-            ... this.funcionario,
-            estado: 1,
-        }).subscribe({
-            next: (data) => {
-                this.save.emit(data);
-                this.onCancel();
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Registrado!',
-                    detail: `El funcionario fue registrado exitosamente.`,
-                    life: 3000,
-                });
-            },
-            error: (err) => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error!',
-                    detail: `Error al crear el funcionario.`,
-                    life: 3000,
-                });
-                console.log('error al crear el funcionario');
-            }
-        })
+        this.funcionarioService
+            .create({
+                ...this.funcionario,
+                estado: 1,
+            })
+            .subscribe({
+                next: (data) => {
+                    this.save.emit(data);
+                    this.onCancel();
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Registrado!',
+                        detail: `El funcionario fue registrado exitosamente.`,
+                        life: 3000,
+                    });
+                },
+                error: (err) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: `Error al crear el funcionario.`,
+                        life: 3000,
+                    });
+                    console.log('error al crear el funcionario');
+                },
+            });
     }
 
     onCancel() {
@@ -84,6 +86,7 @@ export class FuncionarioFormDialogComponent implements OnInit {
 
     onOpen(persona: Persona) {
         this.funcionario.personaId = persona.id;
+        this.funcionario.persona = persona;
         this.showDialog = true;
     }
 }

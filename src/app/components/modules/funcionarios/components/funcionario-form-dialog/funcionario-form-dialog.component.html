@@ -1,34 +1,83 @@
-<p-dialog [(visible)]="showDialog" [style]="{ width: '450px' }" header="Datos del funcionario" [modal]="true"
-    class="p-fluid">
+<p-dialog
+    [(visible)]="showDialog"
+    [style]="{ width: '450px' }"
+    header="Datos del funcionario"
+    [modal]="true"
+    class="p-fluid"
+>
     <ng-template pTemplate="content">
         <div class="field">
             <label for="cargo">Cargo</label>
-            <input type="text" pInputText id="cargo" [(ngModel)]="funcionario.cargo" required autofocus [ngClass]="{
-                            'ng-invalid ng-dirty':
-                                errors.cargo
-                        }" />
-            <small class="ng-dirty ng-invalid" *ngIf="errors.cargo">El cargo del funcionario es
-                requerido.</small>
+            <input
+                type="text"
+                pInputText
+                id="cargo"
+                [(ngModel)]="funcionario.cargo"
+                required
+                autofocus
+                [ngClass]="{
+                    'ng-invalid ng-dirty': errors.cargo
+                }"
+            />
+            <small class="ng-dirty ng-invalid" *ngIf="errors.cargo"
+                >El cargo del funcionario es requerido.</small
+            >
         </div>
         <div class="field">
             <label for="tipoFuncionario">Tipo funcionario</label>
-            <p-dropdown [options]="tiposFuncionario" [(ngModel)]="funcionario.tipoFuncionario" [ngClass]="{
-                'ng-invalid ng-dirty':
-                    errors.tipoFuncionario
-            }"></p-dropdown>
-            <small class="ng-dirty ng-invalid" *ngIf="errors.tipoFuncionario">El tipo de funcionario es
-                requerido.</small>
+            <p-dropdown
+                [options]="tiposFuncionario"
+                [(ngModel)]="funcionario.tipoFuncionario"
+                [ngClass]="{
+                    'ng-invalid ng-dirty': errors.tipoFuncionario
+                }"
+            ></p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="errors.tipoFuncionario"
+                >El tipo de funcionario es requerido.</small
+            >
         </div>
         <div class="field">
             <label for="sucursalId">Sucursal</label>
-            <p-dropdown [options]="sucursales" [(ngModel)]="funcionario.sucursal" optionLabel="nombre"></p-dropdown>
-            <small class="ng-dirty ng-invalid" *ngIf="errors.sucursalId">El tipo de funcionario es
-                requerido.</small>
+            <p-dropdown
+                [options]="sucursales"
+                [(ngModel)]="funcionario.sucursal"
+                optionLabel="nombre"
+            ></p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="errors.sucursalId"
+                >El tipo de funcionario es requerido.</small
+            >
+        </div>
+
+        <div class="field">
+            <label for="tipoFuncionario">PERSONA</label>
+            <input
+                [(ngModel)]="funcionario.persona"
+                [ngClass]="{
+                    'ng-invalid ng-dirty': errors.tipoFuncionario
+                }"
+            />
+            <small class="ng-dirty ng-invalid" *ngIf="errors.persona"
+                >El tipo de Persona es requerida.</small
+            >
         </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text p-button-danger" (click)="onCancel()"></button>
-        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-success" (click)="onSave()"></button>
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text p-button-danger"
+            (click)="onCancel()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-check"
+            class="p-button-success"
+            (click)="onSave()"
+        ></button>
     </ng-template>
 </p-dialog>

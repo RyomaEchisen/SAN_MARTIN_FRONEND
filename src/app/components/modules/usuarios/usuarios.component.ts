@@ -32,6 +32,8 @@ export class UsuariosComponent implements OnInit {
 
     roles: Rol[] = [];
 
+    partialRol: Partial<Rol> = {};
+
     usuarioPersonas: Partial<Persona> = {};
 
     usuario: Partial<Usuario> = {};
@@ -112,9 +114,9 @@ export class UsuariosComponent implements OnInit {
         this.cols = [
             { field: 'username', header: 'Nombre de usuario' },
             { field: 'roles', header: 'Roles' },
+            { field: 'cargo', header: 'Cargo' },
             { field: 'email', header: 'Correo' },
             { field: 'password', header: 'Password' },
-            { field: 'funcionario', header: 'Funcionario' },
         ];
 
         //  this.statuses = [
@@ -145,6 +147,7 @@ export class UsuariosComponent implements OnInit {
 
     deleteUsuario(usuario: Usuario) {
         this.deleteUsuarioDialog = true;
+        console.log('borrar');
         this.usuario = { ...usuario };
     }
 
@@ -233,11 +236,16 @@ export class UsuariosComponent implements OnInit {
     }
 
     saveUsuario() {
-        console.log(this.usuario);
         console.log('USUARIO' + this.usuarioPersonas.nombres);
-        // console.log('USUARIO' + this.usuario.username=this.usuario.funcionario.);
+
+        //console.log('USUARIO' + this.usuario.username=this.usuario.funcionario.);
         this.usuario.username = this.usuarioPersonas.nombres;
-        //this.usuario.roles = [this.usuario.roles];
+
+        this.partialRol = this.usuario.roles;
+
+        // console.log(this.partialRol.nombre);
+        this.usuario.roles = [{ nombre: this.partialRol.nombre }];
+        // console.log(this.usuario.roles.push());
         this.submitted = true;
 
         if (this.usuario.username?.trim()) {

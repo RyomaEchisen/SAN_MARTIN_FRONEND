@@ -1,5 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { UsuarioService } from '../services/usuario.service';
 import { LayoutService } from './service/app.layout.service';
 
 @Component({
@@ -8,11 +9,22 @@ import { LayoutService } from './service/app.layout.service';
 })
 export class AppMenuComponent implements OnInit {
     model: any[] = [];
+    opcion1: any[] = [];
+    opcion2: any[] = [];
+    isLoggedIn = false;
+    user: any = null;
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(
+        public layoutService: LayoutService,
+        public login: UsuarioService
+    ) {}
 
     ngOnInit() {
-        this.model = [
+        this.login.loginStatusSubjec.asObservable().subscribe((data) => {
+            this.isLoggedIn = this.login.isLoggedIn();
+            this.user = this.login.getUser();
+        });
+        this.opcion1 = [
             {
                 label: 'Home',
                 items: [
@@ -67,11 +79,11 @@ export class AppMenuComponent implements OnInit {
                     //     icon: 'pi pi-fw pi-list',
                     //     routerLink: ['/admin/crud'],
                     //},
-                    {
+                    /*{
                         label: 'SOLICITUDES',
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/admin/formularioUsuarios'],
-                    },
+                    },*/
 
                     //{
                     //    label: 'cuadros',
@@ -307,5 +319,48 @@ export class AppMenuComponent implements OnInit {
             //     ],
             // },
         ];
+        this.opcion2 = [
+            {
+                label: 'Home',
+                items: [
+                    {
+                        label: 'PRINCIPAL',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/'],
+                    },
+                ],
+            },
+            {
+                label: 'MENU',
+                items: [
+                    /*{
+                        label: 'REPORTE DE FORMULARIOS',
+                        icon: 'pi pi-fw pi-list',
+                        routerLink: ['/admin/reporteFormularios'],
+                    },*/
+                    {
+                        label: 'SOLICITUDES',
+                        icon: 'pi pi-fw pi-list',
+                        routerLink: ['/admin/formularioUsuarios'],
+                    },
+                ],
+            },
+        ];
+
+        if (
+            this.login.getUserRole() == 'admin' ||
+            this.login.getUserRole() == 'ADMIN'
+        ) {
+            this.model = this.opcion1;
+        } else {
+            if (
+                this.login.getUserRole() == 'user' ||
+                this.login.getUserRole() == 'USER'
+            ) {
+                this.model = this.opcion2;
+            } else {
+                this.login.logout();
+            }
+        }
     }
 }

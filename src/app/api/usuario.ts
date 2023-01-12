@@ -8,9 +8,10 @@ export interface Usuario {
     password: string;
     enabled: boolean;
     email: string;
-    roles: Array<Rol>;
+    roles: any;
     funcionario: Funcionario;
     eventos: Array<Evento>;
+    cargo: String;
 
     [index: string]: any;
     avatar?: string;

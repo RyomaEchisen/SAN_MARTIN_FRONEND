@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { AdminGuard } from './services/admin.guard';
 
 @NgModule({
     imports: [
@@ -18,6 +19,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                 {
                     path: 'admin',
                     component: AppLayoutComponent,
+                    canActivate: [AdminGuard],
                     children: [
                         {
                             path: '',

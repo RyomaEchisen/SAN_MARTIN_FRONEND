@@ -20,5 +20,5 @@ export interface FormularioUsuario {
     observaciones: string;
     fechacreacion: Date;
 
-    usuarios: Array<Usuario>;
+    usuario: Array<Usuario>;
 }
