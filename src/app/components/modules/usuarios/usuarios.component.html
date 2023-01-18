@@ -218,17 +218,7 @@
                         >El rol es requerido.</small
                     >
                 </div>
-                <div>
-                    <label class="control-label">Tipo de Operacion:</label>
-                    <select class="form-control" [(ngModel)]="usuario.roles">
-                        <option [ngValue]="undefined">
-                            Seleccione el tipo de Operacion
-                        </option>
-                        <option *ngFor="let rol of roles" [ngValue]="rol">
-                            {{ rol.nombre }}
-                        </option>
-                    </select>
-                </div>
+
                 <div class="field">
                     <label for="cargo">Cargo</label>
                     <input

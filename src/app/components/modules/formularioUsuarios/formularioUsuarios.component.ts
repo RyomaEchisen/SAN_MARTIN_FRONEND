@@ -145,7 +145,45 @@ export class FormularioUsuariosComponent implements OnInit {
         private usuarioService: UsuarioService
     ) {}
     getFormularioUsuarios() {
-        this.formularioUsuarioService.get().subscribe({
+        if (
+            this.usuarioService.getUserRole() == 'admin' ||
+            this.usuarioService.getUserRole() == 'ADMIN'
+        ) {
+            this.formularioUsuarioService.get().subscribe({
+                next: (response) => {
+                    this.formularioUsuarios = response;
+                },
+                error: (err) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: `Error al conectarse al servidor.`,
+                        life: 3000,
+                    });
+                    // console.log('error en servicio conexión back', err);
+                },
+            });
+        } else {
+            this.formularioUsuarioService
+                .getByUserId(this.usuarioService.getUser().id)
+                .subscribe({
+                    next: (response) => {
+                        this.formularioUsuarios = response;
+                    },
+                    error: (err) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error!',
+                            detail: `Error al conectarse al servidor.`,
+                            life: 3000,
+                        });
+                        // console.log('error en servicio conexión back', err);
+                    },
+                });
+        }
+    }
+    /*  getFormularioUsuarios() {
+        /* this.formularioUsuarioService.get().subscribe({
             next: (response) => {
                 this.formularioUsuarios = response;
             },
@@ -158,8 +196,24 @@ export class FormularioUsuariosComponent implements OnInit {
                 });
                 // console.log('error en servicio conexión back', err);
             },
-        });
-    }
+        });*/
+    /* this.usuarioService
+            .getById(this.usuarioService.getUser().id)
+            .subscribe({
+                next: (response) => {
+                    this.formularioUsuarios = response.formularios;
+                },
+                error: (err) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: `Error al conectarse al servidor.`,
+                        life: 3000,
+                    });
+                    // console.log('error en servicio conexión back', err);
+                },
+            });
+    }*/
     /*constructor(
         private formularioUsuarioService: FormularioService,
         private messageService: MessageService,
@@ -223,8 +277,8 @@ export class FormularioUsuariosComponent implements OnInit {
         this.formularioUsuario.nombre = this.usuarioService.getUser().username;
         this.formularioUsuario.cargo = this.usuarioService.getUser().cargo;
 
-        console.log('asi');
-        console.log(this.usuarioService.getUser().username);
+        console.log('ASI');
+        console.log(this.formularioUsuario.usuario);
     }
 
     /*openNew2(int: number) {
@@ -251,6 +305,7 @@ export class FormularioUsuariosComponent implements OnInit {
                         ...this.formularioUsuario,
                     })
                     .subscribe({
+                        //
                         next: (response) => {
                             this.messageService.add({
                                 severity: 'success',

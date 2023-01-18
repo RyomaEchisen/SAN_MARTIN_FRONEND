@@ -307,6 +307,19 @@ export class ReporteFormulariosComponent implements OnInit {
     editFormularioUsuario(formularioUsuario: FormularioUsuario) {
         this.formularioUsuario = { ...formularioUsuario };
         this.formularioDialog = true;
+        /*const editar = new Date(
+            `${this.formularioUsuario.fecha}`.substring(0, 10)
+        ).toDateString();*/
+
+        this.formularioUsuario.fecha =
+            `${this.formularioUsuario.fecha}`.substring(0, 10);
+
+        console.log('oook como ');
+        // console.log(this.formularioUsuario.fecha);
+        // console.log(`${this.formularioUsuario.fecha}`.substring(0, 10));
+
+        //console.log(editar);
+        // console.log(editar.toLocaleDateString());
     }
 
     ImprimirForm(formularioUsuario: FormularioUsuario) {

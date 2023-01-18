@@ -14,7 +14,7 @@ export interface FormularioUsuario {
     aHora: string;
     fechaRetorno: Date;
     gestion: number;
-    fecha: Date;
+    fecha: any;
     comprobanteId: number;
     pdfId: number;
     observaciones: string;

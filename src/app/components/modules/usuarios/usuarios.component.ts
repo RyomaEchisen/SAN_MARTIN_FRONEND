@@ -142,6 +142,18 @@ export class UsuariosComponent implements OnInit {
 
     editUsuario(usuario: Usuario) {
         this.usuario = { ...usuario };
+        for (let index = 0; index < this.personas.length; index++) {
+            console.log('index');
+            console.log(this.personas[index].nombres);
+            if (this.personas[index].nombres === this.usuario.username) {
+                this.usuarioPersonas = this.personas[index];
+                console.log('personas');
+                console.log(this.usuarioPersonas);
+            }
+        }
+        this.usuario.roles = this.usuario.roles[0];
+        console.log('USUARIO');
+        console.log(this.usuario);
         this.usuarioDialog = true;
     }
 
@@ -242,10 +254,10 @@ export class UsuariosComponent implements OnInit {
         this.usuario.username = this.usuarioPersonas.nombres;
 
         this.partialRol = this.usuario.roles;
-
-        // console.log(this.partialRol.nombre);
+        console.log('1111111111111111111');
+        //console.log(this.partialRol.nombre);
         this.usuario.roles = [{ nombre: this.partialRol.nombre }];
-        // console.log(this.usuario.roles.push());
+        console.log(this.usuario.roles);
         this.submitted = true;
 
         if (this.usuario.username?.trim()) {
@@ -301,7 +313,7 @@ export class UsuariosComponent implements OnInit {
                     });
             }
 
-            // this.usuarios = [...this.usuarios];
+            this.usuarios = [...this.usuarios];
             this.usuarioDialog = false;
             this.usuario = {};
         }
