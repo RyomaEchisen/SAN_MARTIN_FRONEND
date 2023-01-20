@@ -19,6 +19,7 @@ export interface FormularioUsuario {
     pdfId: number;
     observaciones: string;
     fechacreacion: Date;
+    totalHoras: string;
 
     usuario: Array<Usuario>;
 }

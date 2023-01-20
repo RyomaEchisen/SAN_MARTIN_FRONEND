@@ -138,6 +138,13 @@
                                     class="p-button-rounded p-button-warning"
                                     (click)="deleteUsuario(usuario)"
                                 ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-print"
+                                    class="p-button-rounded p-button-warning"
+                                    (click)="VerForm(usuario)"
+                                ></button>
                             </div>
                         </td>
                     </tr>
@@ -277,107 +284,6 @@
                         >El correo es requerido.</small
                     >
                 </div>
-
-                <!--<div class="field">
-                    <label class="mb-3">Estado</label>
-                    <div class="formgrid grid">
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category1"
-                                name="category"
-                                value="Accessories"
-                                [(ngModel)]="usuario.email"
-                            ></p-radioButton>
-                            <label for="category1">Activo</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category2"
-                                name="category"
-                                value="Clothing"
-                                [(ngModel)]="usuario.email"
-                            ></p-radioButton>
-                            <label for="category2">Inactivo</label>
-                        </div>
-                    </div>
-                </div>-->
-                <!--<div class="field">seleccion formulario opciones
-                    <label for="status">Tipo</label>
-                    <p-dropdown
-                        id="status"
-                        [options]="statuses"
-                        optionLabel="label"
-                        [(ngModel)]="usuario.inventoryStatus"
-                        placeholder="Tipo de Cargo"
-                    >
-                        <ng-template pTemplate="selectedItem">
-                            <span
-                                *ngIf="usuario && usuario.inventoryStatus"
-                                [class]="
-                                    'usuario-badge status-' +
-                                    usuario.inventoryStatus.value.toLowerCase()
-                                "
-                                >{{ usuario.inventoryStatus.value }}</span
-                            >
-                        </ng-template>
-                        <ng-template let-status pTemplate="status">
-                            <span
-                                [class]="
-                                    'usuario-badge status-' +
-                                    status.value.toLowerCase()
-                                "
-                                >{{ status.label }}</span
-                            >
-                        </ng-template>
-                    </p-dropdown>
-                </div> -->
-
-                <!--<div class="formgrid grid"> espacio donde se coloca automaticamente la selecion que se opto
-                    <div class="field col">
-                        <label for="price">Cargo</label>
-                        <p-inputNumber
-                            id="price"
-                            [(ngModel)]="usuario.price"
-                            mode="currency"
-                            currency="USD"
-                            locale="en-US"
-
-                        ></p-inputNumber>
-                    </div>
-
-                </div>-->
-                <!-- <div class="field">
-                    <label class="mb-3">Tipo</label>
-                    <div class="formgrid grid">
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category1"
-                                name="category"
-                                value="Accessories"
-                                [(ngModel)]="usuario.category"
-                            ></p-radioButton>
-                            <label for="category1">Planta</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category2"
-                                name="category"
-                                value="Clothing"
-                                [(ngModel)]="usuario.category"
-                            ></p-radioButton>
-                            <label for="category2">Eventual</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category3"
-                                name="category"
-                                value="Electronics"
-                                [(ngModel)]="usuario.category"
-                            ></p-radioButton>
-                            <label for="category3">Contrato</label>
-                        </div>
-                    </div>
-                </div> -->
             </ng-template>
 
             <ng-template pTemplate="footer">
@@ -396,6 +302,46 @@
                     icon="pi pi-check"
                     class="p-button-text"
                     (click)="saveUsuario()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog
+            [(visible)]="printDialog"
+            [style]="{ width: '450px' }"
+            header="Imprimir"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <!--///////////////imprime//////////////////-->
+                <div id="htmlData" class="center-content">
+                    <h2 style="width: 80%">
+                        {{ usuario.username }} <br />
+                        {{ usuario.roles[0].nombre }} <br />
+                        {{ usuario.cargo }} <br />
+                        {{ usuario.email }} <br />
+                    </h2>
+                </div>
+                <!--/////////////////////////////////-->
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Cancel"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="hideVerDialog()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Print"
+                    icon="pi pi-print"
+                    class="p-button-text"
+                    (click)="makePdf()"
                 ></button>
             </ng-template>
         </p-dialog>

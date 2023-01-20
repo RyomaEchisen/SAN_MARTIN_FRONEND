@@ -202,6 +202,8 @@ export class ReporteFormulariosComponent implements OnInit {
             { field: 'fecha', header: 'Fecha' },
             { field: 'deHora', header: 'De Horas' },
             { field: 'aHora', header: 'A Horas' },
+            { field: 'totalHoras', header: 'Total Horas' },
+            { field: 'fechacreacion', header: 'Fecha de Recepcion' },
         ];
 
         //this.formularioDialog2= [ 'dialog1','dialog2'];
@@ -358,5 +360,49 @@ export class ReporteFormulariosComponent implements OnInit {
             // window.open(PDF.output('bloburl'));
             PDF.save('angular-demo.pdf');
         });
+    }
+    totalH() {
+        console.log('total');
+        console.log(this.formularioUsuario.aHora);
+        //
+        var inicio = this.formularioUsuario.deHora;
+        var fin = this.formularioUsuario.aHora;
+
+        var segundos_inicio = '';
+        if (inicio == undefined) {
+            inicio = '';
+        }
+        if (fin == undefined) {
+            fin = '';
+        }
+        var minutos_inicio = inicio.split(':');
+        var minutos_final = fin.split(':');
+        if (parseInt(minutos_inicio[0]) > parseInt(minutos_final[0])) {
+            segundos_inicio =
+                parseInt(minutos_inicio[0]) - parseInt(minutos_final[0]) + 'H';
+        } else {
+            segundos_inicio =
+                parseInt(minutos_final[0]) - parseInt(minutos_inicio[0]) + 'H';
+        }
+        if (parseInt(minutos_inicio[1]) > parseInt(minutos_final[1])) {
+            segundos_inicio =
+                parseInt(minutos_final[0]) -
+                parseInt(minutos_inicio[0]) -
+                1 +
+                'H' +
+                '' +
+                (parseInt(minutos_inicio[1]) - parseInt(minutos_final[1])) +
+                'm';
+        } else {
+            segundos_inicio =
+                segundos_inicio +
+                '' +
+                (parseInt(minutos_final[1]) - parseInt(minutos_inicio[1])) +
+                'm';
+        } //
+        this.formularioUsuario.totalHoras = segundos_inicio;
+        console.log('FINAL');
+        console.log(minutos_final);
+        console.log(minutos_inicio);
     }
 }

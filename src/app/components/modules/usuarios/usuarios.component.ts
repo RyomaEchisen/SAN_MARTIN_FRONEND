@@ -9,6 +9,11 @@ import { FormControl } from '@angular/forms';
 import { RolesService } from 'src/app/services/roles.service';
 import { Rol } from 'src/app/api/rol';
 
+import jsPDF from 'jspdf';
+import 'jspdf/dist/polyfills.es.js';
+import html2canvas from 'html2canvas';
+import { FormularioService } from 'src/app/services/formulario.service';
+
 interface Food {
     value: string;
     viewValue: string;
@@ -50,12 +55,14 @@ export class UsuariosComponent implements OnInit {
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
+    printDialog: Boolean = false;
 
     constructor(
         private usuarioService: UsuarioService,
         private personaService: PersonaService,
         private messageService: MessageService,
-        private rolesService: RolesService
+        private rolesService: RolesService,
+        private formularioUsuarioService: FormularioService
     ) {}
     getUsuarios() {
         this.usuarioService.get().subscribe({
@@ -335,5 +342,48 @@ export class UsuariosComponent implements OnInit {
             (event.target as HTMLInputElement).value,
             'contains'
         );
+    }
+    ImprimirForm(usuario: Usuario) {
+        this.usuario = { ...usuario };
+        this.printDialog = true;
+    }
+    makePdf() {
+        let DATA: any = document.getElementById('htmlData');
+        html2canvas(DATA).then((canvas) => {
+            let fileWidth = 208;
+            let fileHeight = (canvas.height * fileWidth) / canvas.width;
+            const FILEURI = canvas.toDataURL('image/png');
+            let PDF = new jsPDF('p', 'mm', 'a4');
+            let position = 0;
+            PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+            // window.open(PDF.output('bloburl'));
+            PDF.save('angular-demo.pdf');
+        });
+    }
+    hideVerDialog() {
+        this.printDialog = false;
+        //this.submitted = false;
+    }
+    VerForm(usuario: Usuario) {
+        this.usuario = { ...usuario };
+        this.printDialog = true;
+        /*   ides:Number = this.usuario.id;
+        this.formularioUsuarioService
+            .getByUserId(parseInt(ides))
+            .subscribe({
+                next: (response) => {
+                    //this.formularioUsuarios = response;
+                },
+                error: (err) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: `Error al conectarse al servidor.`,
+                        life: 3000,
+                    });
+                    // console.log('error en servicio conexión back', err);
+                },
+            });
+        console.log(this.usuario);*/
     }
 }

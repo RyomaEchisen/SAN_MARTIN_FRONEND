@@ -1236,6 +1236,23 @@
                                     }"
                                 />
                             </label>
+                            <label for="aHora"
+                                >Total Horas
+                                <input
+                                    type="text"
+                                    pInputText
+                                    id="totalHoras"
+                                    [(ngModel)]="formularioUsuario.totalHoras"
+                                    required
+                                    autofocus
+                                    (click)="totalH()"
+                                    [ngClass]="{
+                                        'ng-invalid ng-dirty':
+                                            submitted &&
+                                            !formularioUsuario.totalHoras
+                                    }"
+                                />
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -1286,6 +1303,7 @@
                 </p>
                 {{ formularioUsuario.deHora }} <br />
                 {{ formularioUsuario.aHora }} <br />
+                {{ formularioUsuario.totalHoras }} <br />
             </h2>
         </div>
         <!--/////////////////////////////////-->
