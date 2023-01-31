@@ -10,7 +10,7 @@ import { LayoutService } from './service/app.layout.service';
 })
 export class AppTopBarComponent {
     items!: MenuItem[];
-
+    sesionUsuario: String = '';
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -26,5 +26,8 @@ export class AppTopBarComponent {
     public cerrarSesion() {
         this.usuarioService.logout();
         this.router.navigate(['login']);
+    }
+    ngOnInit() {
+        this.sesionUsuario = this.usuarioService.getUser().username;
     }
 }

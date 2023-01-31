@@ -10,6 +10,8 @@ import jsPDF from 'jspdf';
 import 'jspdf/dist/polyfills.es.js';
 import html2canvas from 'html2canvas';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Vacacion } from 'src/app/api/vacacion';
+import { VacacionService } from 'src/app/services/vacacion.service';
 
 export interface PeriodicElement {
     position: number;
@@ -111,6 +113,8 @@ export class FormularioUsuariosComponent implements OnInit {
         field2: string;
         header2: string;
     }> = [];
+
+    cols3: any[] = [];
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
@@ -127,6 +131,11 @@ export class FormularioUsuariosComponent implements OnInit {
     //formularioUsuario: Partial<FormularioUsuario> = {};
     formularioUsuarios: FormularioUsuario[] = [];
 
+    vacacion1: Partial<Vacacion> = {};
+
+    mensajeVacacion: String = '';
+    Mensaje_Verificacion: String = '';
+
     //submitted: boolean = false;
 
     /* cols: Array<{
@@ -142,7 +151,8 @@ export class FormularioUsuariosComponent implements OnInit {
     constructor(
         private formularioUsuarioService: FormularioService,
         private messageService: MessageService,
-        private usuarioService: UsuarioService
+        private usuarioService: UsuarioService,
+        private vacacionService: VacacionService
     ) {}
     getFormularioUsuarios() {
         if (
@@ -182,43 +192,6 @@ export class FormularioUsuariosComponent implements OnInit {
                 });
         }
     }
-    /*  getFormularioUsuarios() {
-        /* this.formularioUsuarioService.get().subscribe({
-            next: (response) => {
-                this.formularioUsuarios = response;
-            },
-            error: (err) => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error!',
-                    detail: `Error al conectarse al servidor.`,
-                    life: 3000,
-                });
-                // console.log('error en servicio conexión back', err);
-            },
-        });*/
-    /* this.usuarioService
-            .getById(this.usuarioService.getUser().id)
-            .subscribe({
-                next: (response) => {
-                    this.formularioUsuarios = response.formularios;
-                },
-                error: (err) => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error!',
-                        detail: `Error al conectarse al servidor.`,
-                        life: 3000,
-                    });
-                    // console.log('error en servicio conexión back', err);
-                },
-            });
-    }*/
-    /*constructor(
-        private formularioUsuarioService: FormularioService,
-        private messageService: MessageService,
-    ) {}
-*/
 
     ngOnInit() {
         this.getFormularioUsuarios();
@@ -255,10 +228,52 @@ export class FormularioUsuariosComponent implements OnInit {
             { field: 'tipoF', header: 'Tipo' },
             { field: 'cargo', header: 'Cargo' },
             { field: 'motivo', header: 'Motivo' },
+            { field: 'tipoDeLicencia', header: 'Tipo de Licencia' },
+            { field: 'fecha', header: 'Fecha' },
+            { field: 'fechaFin', header: 'A Fecha' },
+            { field: 'gestion', header: 'Gestion' },
+            { field: 'fechacreacion', header: 'Fecha de Envio' },
+        ];
+        this.cols3[1] = [
+            { field: 'nombre', header: 'Nombre Formulario' },
+            { field: 'tipoF', header: 'Tipo' },
+            { field: 'cargo', header: 'Cargo' },
+            { field: 'motivo', header: 'Motivo' },
             { field: 'fecha', header: 'Fecha' },
             { field: 'deHora', header: 'De Horas' },
             { field: 'aHora', header: 'A Horas' },
             { field: 'totalHoras', header: 'Total Horas' },
+            { field: 'fechacreacion', header: 'Fecha de Envio' },
+        ];
+        this.cols3[2] = [
+            { field: 'nombre', header: 'Nombre Formulario' },
+            { field: 'tipoF', header: 'Tipo' },
+            { field: 'cargo', header: 'Cargo' },
+            { field: 'motivo', header: 'Motivo' },
+            { field: 'fecha', header: 'Fecha' },
+            { field: 'fechaFin', header: 'A Fecha' },
+            { field: 'deHora', header: 'De Horas' },
+            { field: 'aHora', header: 'A Horas' },
+            { field: 'fechacreacion', header: 'Fecha de Envio' },
+        ];
+        this.cols3[4] = [
+            { field: 'nombre', header: 'Nombre Formulario' },
+            { field: 'tipoF', header: 'Tipo' },
+            { field: 'cargo', header: 'Cargo' },
+            { field: 'motivo', header: 'Motivo' },
+            { field: 'tipoDeLicencia', header: 'Tipo de Licencia' },
+            { field: 'fecha', header: 'Fecha' },
+            { field: 'fechaFin', header: 'A Fecha' },
+            { field: 'observaciones', header: 'Observaciones' },
+            { field: 'fechacreacion', header: 'Fecha de Envio' },
+        ];
+        this.cols3[5] = [
+            { field: 'nombre', header: 'Nombre Formulario' },
+            { field: 'tipoF', header: 'Tipo' },
+            { field: 'cargo', header: 'Cargo' },
+            { field: 'motivo', header: 'Motivo' },
+            { field: 'fecha', header: 'Fecha' },
+            { field: 'fechaFin', header: 'A Fecha' },
             { field: 'fechacreacion', header: 'Fecha de Envio' },
         ];
 
@@ -292,11 +307,11 @@ export class FormularioUsuariosComponent implements OnInit {
     hideDialog() {
         this.formularioDialog = false;
         this.submitted = false;
+        this.Mensaje_Verificacion = '';
     }
 
     saveFormularioUsuario() {
         this.submitted = true;
-        console.log('HOLA' + this.formularioUsuario.tipoF);
         if (this.formularioUsuario.nombre?.trim()) {
             if (this.formularioUsuario.id) {
                 // @ts-ignore
@@ -315,6 +330,8 @@ export class FormularioUsuariosComponent implements OnInit {
                                 life: 3000,
                             });
                             this.getFormularioUsuarios();
+                            this.formularioDialog = false;
+                            this.formularioUsuario = {};
                         },
                         error: (err) => {
                             this.messageService.add({
@@ -326,40 +343,101 @@ export class FormularioUsuariosComponent implements OnInit {
                         },
                     });
             } else {
-                this.formularioUsuarioService
-                    .create({
-                        ...this.formularioUsuario,
-                    })
+                var diez = false;
+                if (this.formularioUsuario.tipoF != '10') {
+                    diez = true;
+                }
+                if (
+                    this.vacacion1 != null &&
+                    this.formularioUsuario.tipoF == '10'
+                ) {
+                    var nombreV = this.totalDias(
+                        `${this.formularioUsuario.fecha}`,
+                        `${this.formularioUsuario.fechaFin}`
+                    );
+                    if (parseInt(`${this.vacacion1.cantidadDias}`) >= nombreV) {
+                        diez = true;
+                        console.log('la cantidad de dias disponibles ');
+                        this.vacacion1.cantidadDias =
+                            '' +
+                            (parseInt(`${this.vacacion1.cantidadDias}`) -
+                                nombreV);
 
-                    .subscribe({
-                        next: (response) => {
-                            this.messageService.add({
-                                severity: 'success',
-                                summary: 'Registrado!',
-                                detail: 'Formulario registrada exitosamente',
-                                life: 3000,
+                        console.log('HOLA' + this.formularioUsuario.tipoF);
+                        this.vacacionService
+                            .update(parseInt(`${this.vacacion1.id}`), {
+                                ...this.vacacion1,
+                            })
+                            .subscribe({
+                                //
+                                next: (response) => {
+                                    this.messageService.add({
+                                        severity: 'success',
+                                        summary: 'Actualizado!',
+                                        detail: 'Formulario actualizada exitosamente',
+                                        life: 3000,
+                                    });
+                                    this.getFormularioUsuarios();
+                                },
+                                error: (err) => {
+                                    this.messageService.add({
+                                        severity: 'error',
+                                        summary: 'Error!',
+                                        detail: 'Error al actualizar la formularioUsuario.',
+                                        life: 3000,
+                                    });
+                                },
                             });
-                            this.getFormularioUsuarios();
-                        },
-                        error: (err) => {
-                            this.messageService.add({
-                                severity: 'error',
-                                summary: 'Error!',
-                                detail: 'Error al registrar la formularioUsuario.',
-                                life: 3000,
-                            });
-                        },
-                    });
-                console.log(
-                    'formularioUsuarioService' + this.formularioUsuario
-                );
+                    } else {
+                        console.log('error de cantidad de dias disponibles');
+                        this.mensajeVacacion =
+                            'la cantidad de dias solicititados es mayor a las disponibles de la gestion ' +
+                            `${this.formularioUsuario.gestion}` +
+                            ' o presione el boton VERIFICAR';
+                    }
+                }
+                if (diez == true) {
+                    this.formularioUsuarioService
+                        .create({
+                            ...this.formularioUsuario,
+                        })
+
+                        .subscribe({
+                            next: (response) => {
+                                this.messageService.add({
+                                    severity: 'success',
+                                    summary: 'Registrado!',
+                                    detail: 'Formulario registrada exitosamente',
+                                    life: 3000,
+                                });
+                                this.getFormularioUsuarios();
+                                this.formularioDialog = false;
+                                this.formularioUsuario = {};
+                            },
+                            error: (err) => {
+                                this.messageService.add({
+                                    severity: 'error',
+                                    summary: 'Error!',
+                                    detail: 'Error al registrar la formularioUsuario.',
+                                    life: 3000,
+                                });
+                            },
+                        });
+                    console.log(
+                        'formularioUsuarioService' + this.formularioUsuario
+                    );
+                }
+
+                // @ts-ignore
+                // TODO: interactuar con back
             }
 
             // this.formularioUsuarios = [...this.formularioUsuarios];
-            this.formularioDialog = false;
-
-            this.formularioUsuario = {};
         }
+
+        ///////////////////////////////
+
+        this.Mensaje_Verificacion = '';
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -411,6 +489,7 @@ export class FormularioUsuariosComponent implements OnInit {
             PDF.save('angular-demo.pdf');
         });
     }
+    ///////horas
     totalH() {
         console.log('total');
         console.log(this.formularioUsuario.aHora);
@@ -454,5 +533,60 @@ export class FormularioUsuariosComponent implements OnInit {
         console.log('FINAL');
         console.log(minutos_final);
         console.log(minutos_inicio);
+    }
+
+    /////dias
+    totalDias(inicio: String, fin: String) {
+        console.log('total');
+        console.log(this.formularioUsuario.fecha);
+        //var inicio = `${this.formularioUsuario.fecha}`;
+        //var fin = `${this.formularioUsuario.fechaFin}`;
+        console.log('INICIO');
+        console.log(inicio);
+        var dias_inicio = inicio.split('-');
+        var dias_final = fin.split('-');
+        var date1 = new Date(
+            dias_inicio[1] + '/' + dias_inicio[2] + '/' + dias_inicio[0]
+        );
+        var date2 = new Date(
+            dias_final[1] + '/' + dias_final[2] + '/' + dias_final[0]
+        );
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24) + 1;
+        console.log('FECHA DIAS');
+        console.log(Difference_In_Days);
+        //this.formularioUsuario.totalHoras = Difference_In_Days + 'D';
+        return Difference_In_Days;
+    }
+    vacacionesAnuales() {
+        console.log('USER');
+        console.log(this.usuarioService.getUser());
+        this.mensajeVacacion = ``;
+        this.vacacionService
+            .getByUserIdGestion(
+                parseInt(`${this.usuarioService.getUser().id}`),
+                parseInt(`${this.formularioUsuario.gestion}`)
+            )
+            .subscribe({
+                next: (response) => {
+                    this.vacacion1 = response;
+                    console.log('VACACION1');
+                    console.log(this.vacacion1);
+                    this.Mensaje_Verificacion =
+                        'Dispone de ' +
+                        this.vacacion1.cantidadDias +
+                        ' dias de la gestion ' +
+                        this.formularioUsuario.gestion;
+                },
+                error: (err) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: `Error al conectarse al servidor.`,
+                        life: 3000,
+                    });
+                    // console.log('error en servicio conexión back', err);
+                },
+            });
     }
 }

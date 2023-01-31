@@ -13,13 +13,24 @@
                             class="p-button-success mr-2"
                             (click)="openNew()"
                         ></button>
-                        <button
+                        <!--button
                             pButton
                             pRipple
                             label="Delete"
                             icon="pi pi-trash"
                             class="p-button-danger"
                             (click)="deleteSelectedUsuarios()"
+                            [disabled]="
+                                !selectedUsuarios || !selectedUsuarios.length
+                            "
+                        ></button-->
+                        <button
+                            pButton
+                            pRipple
+                            label="Asignar Vacacion"
+                            icon="pi pi-plus"
+                            class="p-button-warning"
+                            (click)="vacacionSelectedUsuarios()"
                             [disabled]="
                                 !selectedUsuarios || !selectedUsuarios.length
                             "
@@ -117,7 +128,12 @@
                             ></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of cols">
-                            <span>{{ usuario[col.field] }}</span>
+                            <span *ngIf="col.field == 'roles'">{{
+                                usuario.roles[0].nombre
+                            }}</span>
+                            <span *ngIf="col.field != 'roles'">{{
+                                usuario[col.field]
+                            }}</span>
                         </td>
                         <td>
                             <div class="flex">
@@ -141,7 +157,7 @@
                                 <button
                                     pButton
                                     pRipple
-                                    icon="pi pi-print"
+                                    icon="pi pi-eye"
                                     class="p-button-rounded p-button-warning"
                                     (click)="VerForm(usuario)"
                                 ></button>
@@ -180,6 +196,37 @@
                 ></button>
             </ng-template>
         </p-dialog>
+        <!--///////////////////////////////////-->
+        <p-dialog
+            [(visible)]="vacacionUsuarioDialog"
+            [style]="{ width: '450px' }"
+            header="Asignar Vacacion"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <h6>Estas seguro de asignar vacaciones?</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Cancelar"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="cancelVacacion()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Asignar"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="confirmVacacion()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+        <!--///////////////////////////////////-->
         <p-dialog
             [(visible)]="usuarioDialog"
             [style]="{ width: '450px' }"
@@ -284,6 +331,26 @@
                         >El correo es requerido.</small
                     >
                 </div>
+                <div class="field">
+                    <label for="fechaIngreso">Fecha de Ingreso</label>
+                    <input
+                        type="date"
+                        pInputText
+                        id="fechaIngreso"
+                        [(ngModel)]="usuario.fechaIngreso"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty':
+                                submitted && !usuario.fechaIngreso
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !usuario.fechaIngreso"
+                        >El fecha es requerido</small
+                    >
+                </div>
             </ng-template>
 
             <ng-template pTemplate="footer">
@@ -308,20 +375,53 @@
 
         <p-dialog
             [(visible)]="printDialog"
-            [style]="{ width: '450px' }"
-            header="Imprimir"
+            [style]="{ width: '750px' }"
+            header="DETALLE DE DIAS DISPONIBLES PARA VACACIONES "
             [modal]="true"
             class="p-fluid"
         >
             <ng-template pTemplate="content">
                 <!--///////////////imprime//////////////////-->
                 <div id="htmlData" class="center-content">
-                    <h2 style="width: 80%">
-                        {{ usuario.username }} <br />
-                        {{ usuario.roles[0].nombre }} <br />
-                        {{ usuario.cargo }} <br />
-                        {{ usuario.email }} <br />
-                    </h2>
+                    <div class="card text-center">
+                        <img
+                            src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                            width="50"
+                            height="50"
+                            alt="COOPERATIVA"
+                        />
+                        <h3>
+                            COOPERATIVA DE AHORRO Y CREDITO<br />
+                            SOCIETARIA "SAN MARTIN" RL<br /><br />
+                        </h3>
+                    </div>
+                    <h5 style="width: 80%">
+                        NOMBRE DE USUARIO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            usuario.username
+                        }}
+                        <br />
+                        ROL DE USUARIO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            usuario.roles[0].nombre
+                        }}
+                        <br />
+                        CARGO DE USUARIO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            usuario.cargo
+                        }}
+                        <br />
+                        CORREO ELECTRONICO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            usuario.email
+                        }}
+                        <br />
+                    </h5>
+                    <div *ngFor="let col of diasDisponibles">
+                        <h5 style="width: 80%">
+                            GESTION:&nbsp;&nbsp;&nbsp;&nbsp;{{ col.gestion
+                            }}<br />
+                            VACACIONES DISPONIBLES:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                                col.cantidadDias
+                            }}<br />
+                        </h5>
+                    </div>
                 </div>
                 <!--/////////////////////////////////-->
             </ng-template>
@@ -330,19 +430,19 @@
                 <button
                     pButton
                     pRipple
-                    label="Cancel"
+                    label="Salir"
                     icon="pi pi-times"
                     class="p-button-text"
                     (click)="hideVerDialog()"
                 ></button>
-                <button
+                <!--button
                     pButton
                     pRipple
                     label="Print"
                     icon="pi pi-print"
                     class="p-button-text"
                     (click)="makePdf()"
-                ></button>
+                ></button-->
             </ng-template>
         </p-dialog>
     </div>

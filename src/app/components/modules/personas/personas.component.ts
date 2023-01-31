@@ -40,6 +40,7 @@ export class PersonasComponent implements OnInit {
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
+    verPersonaDialog: boolean = false;
 
     constructor(
         private personaService: PersonaService,
@@ -76,7 +77,7 @@ export class PersonasComponent implements OnInit {
             { field: 'materno', header: 'Ap. materno' },
             { field: 'tipoDocumento', header: 'Tipo de documento' },
             { field: 'numeroDocumento', header: 'Numero de documento' },
-            { field: 'funcionario', header: 'Funcionario' },
+            // { field: 'funcionario', header: 'Funcionario' },
             { field: 'correo', header: 'Correo' },
         ];
 
@@ -279,4 +280,12 @@ export class PersonasComponent implements OnInit {
     //this.archivos.push(archivoDoc)
     // console.log(evento.target.files);
     //}
+    verPersona(persona: Persona) {
+        this.persona = { ...persona };
+        this.verPersonaDialog = true;
+    }
+    ocultarPersonaDialog() {
+        this.verPersonaDialog = false;
+        // this.submitted = false;
+    }
 }

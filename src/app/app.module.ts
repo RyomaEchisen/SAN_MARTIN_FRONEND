@@ -19,6 +19,7 @@ import { PersonaService } from './services/persona.service';
 import { FormularioService } from './services/formulario.service';
 import { RolesService } from './services/roles.service';
 import { authInterceptorProviders } from './services/auth.interceptor';
+import { VacacionService } from './services/vacacion.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -45,6 +46,7 @@ import { authInterceptorProviders } from './services/auth.interceptor';
         FormularioService,
         RolesService,
         authInterceptorProviders,
+        VacacionService,
     ],
     bootstrap: [AppComponent],
 })

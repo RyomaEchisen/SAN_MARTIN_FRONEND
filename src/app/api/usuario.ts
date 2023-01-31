@@ -14,7 +14,7 @@ export interface Usuario {
     eventos: Array<Evento>;
     cargo: String;
     formularios: Array<FormularioUsuario>;
-
+    fechaIngreso: Date;
     [index: string]: any;
     avatar?: string;
 }

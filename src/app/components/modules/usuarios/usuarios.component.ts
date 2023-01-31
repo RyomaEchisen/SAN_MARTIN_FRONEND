@@ -13,6 +13,9 @@ import jsPDF from 'jspdf';
 import 'jspdf/dist/polyfills.es.js';
 import html2canvas from 'html2canvas';
 import { FormularioService } from 'src/app/services/formulario.service';
+import { VacacionService } from 'src/app/services/vacacion.service';
+import { formatDate } from '@angular/common';
+import { Vacacion } from 'src/app/api/vacacion';
 
 interface Food {
     value: string;
@@ -45,6 +48,10 @@ export class UsuariosComponent implements OnInit {
 
     selectedUsuarios: Usuario[] = [];
 
+    vacacionAño: Partial<Vacacion> = {};
+
+    vacacionUsuarioDialog: boolean = false;
+
     submitted: boolean = false;
 
     cols: Array<{
@@ -57,13 +64,35 @@ export class UsuariosComponent implements OnInit {
     rowsPerPageOptions = [5, 10, 20];
     printDialog: Boolean = false;
 
+    diasDisponibles: Array<Vacacion> = [];
+
     constructor(
         private usuarioService: UsuarioService,
         private personaService: PersonaService,
         private messageService: MessageService,
         private rolesService: RolesService,
-        private formularioUsuarioService: FormularioService
+        private formularioUsuarioService: FormularioService,
+        private vacacionService: VacacionService
     ) {}
+    getVacaciones(id: any) {
+        this.vacacionService.getByUserId(parseInt(`${id}`)).subscribe({
+            next: (response) => {
+                this.diasDisponibles = response;
+
+                console.log('dias');
+                console.log(this.diasDisponibles);
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
+            },
+        });
+    }
     getUsuarios() {
         this.usuarioService.get().subscribe({
             next: (response) => {
@@ -79,7 +108,26 @@ export class UsuariosComponent implements OnInit {
                 // console.log('error en servicio conexión back', err);
             },
         });
+
+        /*  this.vacacionService.get().subscribe({
+            next: (response) => {
+                //this.usuarios = response;
+
+                console.log('vacacion');
+                console.log(response);
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error!',
+                    detail: `Error al conectarse al servidor.`,
+                    life: 3000,
+                });
+                // console.log('error en servicio conexión back', err);
+            },
+        });*/
     }
+
     getPersonas() {
         this.personaService.get().subscribe({
             next: (response) => {
@@ -118,12 +166,14 @@ export class UsuariosComponent implements OnInit {
         this.getUsuarios();
         this.getPersonas();
         this.getRoles();
+        //  this.getVacaciones();
         this.cols = [
             { field: 'username', header: 'Nombre de usuario' },
             { field: 'roles', header: 'Roles' },
             { field: 'cargo', header: 'Cargo' },
             { field: 'email', header: 'Correo' },
             { field: 'password', header: 'Password' },
+            { field: 'fechaIngreso', header: 'FechaIngreso' },
         ];
 
         //  this.statuses = [
@@ -147,6 +197,82 @@ export class UsuariosComponent implements OnInit {
         this.deleteUsuariosDialog = true;
     }
 
+    vacacionSelectedUsuarios() {
+        this.vacacionUsuarioDialog = true;
+    }
+
+    cancelVacacion() {
+        this.vacacionUsuarioDialog = false;
+    }
+    async confirmVacacion() {
+        this.vacacionUsuarioDialog = false;
+        var gaño = '' + new Date().getFullYear();
+
+        await Promise.all(
+            this.selectedUsuarios.map(async (usuario) => {
+                if (usuario.id) {
+                    {
+                        var vacacion123 = 0;
+
+                        if (
+                            usuario.roles[0].nombre == 'user' &&
+                            usuario.fechaIngreso != null
+                        ) {
+                            this.vacacionAño = {};
+                            var recuperar = `${usuario.fechaIngreso}`.split(
+                                '-'
+                            );
+                            var añitos =
+                                parseInt(gaño) - parseInt(recuperar[0]);
+                            //console.log('0000000000');
+                            //console.log(añitos);
+                            if (añitos > 0) {
+                                vacacion123 = 15;
+                            }
+                            if (añitos > 4) {
+                                vacacion123 = 20;
+                            }
+                            if (añitos > 10) {
+                                vacacion123 = 30;
+                            }
+
+                            // var minutos_inicio = inicio.split(':');
+                            // var element = usuario;
+                            console.log('vacacion123');
+                            console.log(vacacion123);
+                            this.vacacionAño.gestion = '' + gaño;
+                            this.vacacionAño.usuario = usuario;
+                            this.vacacionAño.cantidadDias = '' + vacacion123;
+                            return await this.vacacionService
+                                .create({
+                                    ...this.vacacionAño,
+                                })
+                                .subscribe({
+                                    next: (response) => {
+                                        this.messageService.add({
+                                            severity: 'success',
+                                            summary: 'Registrado!',
+                                            detail: 'vacacion registrada exitosamente',
+                                            life: 3000,
+                                        });
+                                        this.getUsuarios();
+                                    },
+                                    error: (err) => {
+                                        this.messageService.add({
+                                            severity: 'error',
+                                            summary: 'Error!',
+                                            detail: 'Error al registrar la Vacacion.',
+                                            life: 3000,
+                                        });
+                                    },
+                                });
+                        }
+                    }
+                }
+                return undefined;
+            })
+        );
+    }
     editUsuario(usuario: Usuario) {
         this.usuario = { ...usuario };
         for (let index = 0; index < this.personas.length; index++) {
@@ -367,6 +493,7 @@ export class UsuariosComponent implements OnInit {
     VerForm(usuario: Usuario) {
         this.usuario = { ...usuario };
         this.printDialog = true;
+        this.getVacaciones(this.usuario.id);
         /*   ides:Number = this.usuario.id;
         this.formularioUsuarioService
             .getByUserId(parseInt(ides))
@@ -385,5 +512,69 @@ export class UsuariosComponent implements OnInit {
                 },
             });
         console.log(this.usuario);*/
+    }
+    generarVacacionAnual() {
+        this.getUsuarios;
+        var gaño = '' + new Date().getFullYear();
+        console.log('año');
+        console.log(gaño);
+        var anual = this.usuarios;
+        console.log('anual');
+        console.log(anual);
+        // this.getPersonas();
+        for (let index = 0; index < anual.length; index++) {
+            var vacacion123 = 0;
+
+            if (
+                anual[index].roles[0].nombre == 'user' &&
+                anual[index].fechaIngreso != null
+            ) {
+                this.vacacionAño = {};
+                var recuperar = `${anual[index].fechaIngreso}`.split('-');
+                var añitos = parseInt(gaño) - parseInt(recuperar[0]);
+                //console.log('0000000000');
+                //console.log(añitos);
+                if (añitos > 0) {
+                    vacacion123 = 15;
+                }
+                if (añitos > 4) {
+                    vacacion123 = 20;
+                }
+                if (añitos > 10) {
+                    vacacion123 = 30;
+                }
+
+                // var minutos_inicio = inicio.split(':');
+                // var element = anual[index];
+                console.log('vacacion123');
+                console.log(vacacion123);
+                this.vacacionAño.gestion = '' + gaño;
+                this.vacacionAño.usuario = anual[index];
+                this.vacacionAño.cantidadDias = '' + vacacion123;
+                this.vacacionService
+                    .create({
+                        ...this.vacacionAño,
+                    })
+                    .subscribe({
+                        next: (response) => {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Registrado!',
+                                detail: 'vacacion registrada exitosamente',
+                                life: 3000,
+                            });
+                            this.getUsuarios();
+                        },
+                        error: (err) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error!',
+                                detail: 'Error al registrar la Vacacion.',
+                                life: 3000,
+                            });
+                        },
+                    });
+            }
+        }
     }
 }

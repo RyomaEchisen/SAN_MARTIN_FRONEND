@@ -122,7 +122,7 @@
                             ></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of cols">
-                            <div
+                            <!--div
                                 *ngIf="
                                     col.field == 'funcionario';
                                     else elseFuncField
@@ -146,10 +146,10 @@
                                         (click)="onAsignarFuncionario(persona)"
                                     ></button>
                                 </ng-template>
-                            </div>
-                            <ng-template #elseFuncField>
-                                <span>{{ persona[col.field] }}</span>
-                            </ng-template>
+                            </div-->
+                            <!--ng-template #elseFuncField-->
+                            <span>{{ persona[col.field] }}</span>
+                            <!--/ng-template-->
                         </td>
                         <td>
                             <div class="flex">
@@ -169,6 +169,13 @@
                                     icon="pi pi-trash"
                                     class="p-button-rounded p-button-warning"
                                     (click)="deletePersona(persona)"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-eye"
+                                    class="p-button-rounded p-button-warning"
+                                    (click)="verPersona(persona)"
                                 ></button>
                             </div>
                         </td>
@@ -279,107 +286,6 @@
                         }"
                     />
                 </div>
-
-                <!--<div class="field">
-                    <label class="mb-3">Estado</label>
-                    <div class="formgrid grid">
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category1"
-                                name="category"
-                                value="Accessories"
-                                [(ngModel)]="persona.email"
-                            ></p-radioButton>
-                            <label for="category1">Activo</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category2"
-                                name="category"
-                                value="Clothing"
-                                [(ngModel)]="persona.email"
-                            ></p-radioButton>
-                            <label for="category2">Inactivo</label>
-                        </div>
-                    </div>
-                </div>-->
-                <!--<div class="field">seleccion formulario opciones
-                    <label for="status">Tipo</label>
-                    <p-dropdown
-                        id="status"
-                        [options]="statuses"
-                        optionLabel="label"
-                        [(ngModel)]="persona.inventoryStatus"
-                        placeholder="Tipo de Cargo"
-                    >
-                        <ng-template pTemplate="selectedItem">
-                            <span
-                                *ngIf="persona && persona.inventoryStatus"
-                                [class]="
-                                    'persona-badge status-' +
-                                    persona.inventoryStatus.value.toLowerCase()
-                                "
-                                >{{ persona.inventoryStatus.value }}</span
-                            >
-                        </ng-template>
-                        <ng-template let-status pTemplate="status">
-                            <span
-                                [class]="
-                                    'persona-badge status-' +
-                                    status.value.toLowerCase()
-                                "
-                                >{{ status.label }}</span
-                            >
-                        </ng-template>
-                    </p-dropdown>
-                </div> -->
-
-                <!--<div class="formgrid grid"> espacio donde se coloca automaticamente la selecion que se opto
-                    <div class="field col">
-                        <label for="price">Cargo</label>
-                        <p-inputNumber
-                            id="price"
-                            [(ngModel)]="persona.price"
-                            mode="currency"
-                            currency="USD"
-                            locale="en-US"
-
-                        ></p-inputNumber>
-                    </div>
-
-                </div>-->
-                <!-- <div class="field">
-                    <label class="mb-3">Tipo</label>
-                    <div class="formgrid grid">
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category1"
-                                name="category"
-                                value="Accessories"
-                                [(ngModel)]="persona.category"
-                            ></p-radioButton>
-                            <label for="category1">Planta</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category2"
-                                name="category"
-                                value="Clothing"
-                                [(ngModel)]="persona.category"
-                            ></p-radioButton>
-                            <label for="category2">Eventual</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category3"
-                                name="category"
-                                value="Electronics"
-                                [(ngModel)]="persona.category"
-                            ></p-radioButton>
-                            <label for="category3">Contrato</label>
-                        </div>
-                    </div>
-                </div> -->
             </ng-template>
 
             <ng-template pTemplate="footer">
@@ -460,6 +366,69 @@
                 ></button>
             </ng-template>
         </p-dialog>
+
+        <p-dialog
+            [(visible)]="verPersonaDialog"
+            [style]="{ width: '750px' }"
+            header="DETALLE DE PERSONA "
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <!--///////////////imprime//////////////////-->
+                <div id="htmlData" class="center-content">
+                    <div class="card text-center">
+                        <img
+                            src="https://i.ibb.co/YjdPZM9/COOPERATIVA.png"
+                            width="50"
+                            height="50"
+                            alt="COOPERATIVA"
+                        />
+                        <h3>
+                            COOPERATIVA DE AHORRO Y CREDITO<br />
+                            SOCIETARIA "SAN MARTIN" RL<br /><br />
+                        </h3>
+                    </div>
+                    <h5 style="width: 80%">
+                        NOMBRE(S):&nbsp;&nbsp;&nbsp;&nbsp;{{ persona.nombres }}
+                        <br />
+                        APELLIDO PATERNO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            persona.paterno
+                        }}
+                        <br />
+                        APELLIDO MATERNO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            persona.materno
+                        }}
+                        <br />
+                        CORREO ELECTRONICO:&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            persona.correo
+                        }}
+                        <br />
+                    </h5>
+                </div>
+                <!--/////////////////////////////////-->
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Salir"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="ocultarPersonaDialog()"
+                ></button>
+                <!--button
+                pButton
+                pRipple
+                label="Print"
+                icon="pi pi-print"
+                class="p-button-text"
+                (click)="makePdf()"
+            ></button-->
+            </ng-template>
+        </p-dialog>
+
         <app-funcionario-form-dialog
             #dialogFunc
             (save)="onSaveFuncionario($event)"

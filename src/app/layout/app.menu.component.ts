@@ -31,7 +31,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'PRINCIPAL',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/'],
+                        routerLink: ['/admin'],
                     },
                 ],
             },
@@ -45,7 +45,7 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/admin/usuarios'],
                     },
                     {
-                        label: 'PERSONAS',
+                        label: 'FUNCIONARIOS',
                         icon: 'pi pi-fw pi-user',
                         routerLink: ['/admin/personas'],
                     },
@@ -59,21 +59,21 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-check-square',
                         routerLink: ['/admin/habilitarPermisos'],
                     },
-                    {
+                    /*{
                         label: 'REPORTE FUNCIONARIOS',
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/admin/reporteFuncionarios'],
-                    },
+                    },*/
                     {
                         label: 'REPORTE DE FORMULARIOS',
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/admin/reporteFormularios'],
                     },
-                    {
+                    /* {
                         label: 'REPORTE DE SUCURSALES',
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/admin/reporteSucursales'],
-                    },
+                    },*/
                     //{
                     //     label: 'CRUD',
                     //     icon: 'pi pi-fw pi-list',
